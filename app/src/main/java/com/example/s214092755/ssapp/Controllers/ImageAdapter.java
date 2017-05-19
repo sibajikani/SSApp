@@ -7,6 +7,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.example.s214092755.ssapp.R;
+
 import java.util.List;
 
 /**
@@ -15,16 +17,13 @@ import java.util.List;
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
-    private List<Object> objects;
 
-    public ImageAdapter(Context c,List<Object> objects) {
+    public ImageAdapter(Context c) {
         mContext = c;
-        this.objects = objects;
     }
 
     public int getCount() {
-        //return mThumbIds.length;
-        return 0;
+        return mThumbIds.length;
     }
 
     public Object getItem(int position) {
@@ -48,22 +47,21 @@ public class ImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        //imageView.setImageResource(mThumbIds[position]);
+        imageView.setImageResource(mThumbIds[position]);
         return imageView;
     }
 
     // references to our images
-    /*private Integer[] mThumbIds = {
-            R.drawable.sample_2, R.drawable.sample_3,
-            R.drawable.sample_4, R.drawable.sample_5,
-            R.drawable.sample_6, R.drawable.sample_7,
-            R.drawable.sample_0, R.drawable.sample_1,
-            R.drawable.sample_2, R.drawable.sample_3,
-            R.drawable.sample_4, R.drawable.sample_5,
-            R.drawable.sample_6, R.drawable.sample_7,
-            R.drawable.sample_0, R.drawable.sample_1,
-            R.drawable.sample_2, R.drawable.sample_3,
-            R.drawable.sample_4, R.drawable.sample_5,
-            R.drawable.sample_6, R.drawable.sample_7
-    };*/
+    private Integer[] mThumbIds = {
+            R.drawable.images, R.drawable.n_tech_1kg_american_870x1110,
+            R.drawable.new_usn_nl_towel, R.drawable.tornado_shaker_front_b_1,
+            R.drawable.nutritech_anabolicmass5_2, R.drawable.nutritechfit_hunter_cap_product_page,
+            R.drawable.nutritechfit_lifting_gloves_product_page1_250x317, R.drawable.nutritechfit_nylon_lifting_belt_product_page1_250x317,
+            R.drawable.nutritechfit_pullover_250x317, R.drawable.usn_pure_protein1,
+            R.drawable.usn_b4_bomb, R.drawable.usn_100_premium_whey_protein,
+            R.drawable.nutritechfit_mens_summer_swolestice_singlet_pink,
+            R.drawable.nutritechfit_amino_pre_250x317, R.drawable.nutritech_shakepro400_2,
+            R.drawable.nutritechfit_2_2_litre_colossus_bottle_1_250x317,
+            R.drawable.nutribot_tee_front_1_11
+    };
 }
