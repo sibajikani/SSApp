@@ -1,14 +1,17 @@
 package com.example.s214092755.ssapp.Models;
 
+import java.io.Serializable;
+
 /**
  * Created by s214092755 on 2017/05/17.
  */
 
-public class Supplement extends Product {
+public class Supplement extends Product implements Serializable {
     String flavour, typeSup,size;
     int onHandSup;
 
-    public Supplement(String ID, String name, String type, String manu, String picLink, int onHand, double unitPrice, String flavour, String typeSup, String size, int onHandSup) {
+    public Supplement(String ID, String name, String type, String manu, String picLink, int onHand, double unitPrice, String flavour, String typeSup, String size, int onHandSup)
+    {
         super(ID, name, type, manu, picLink, onHand, unitPrice);
         this.flavour = flavour;
         this.typeSup = typeSup;

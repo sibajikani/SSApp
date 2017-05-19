@@ -1,10 +1,12 @@
 package com.example.s214092755.ssapp.Models;
 
+import java.io.Serializable;
+
 /**
  * Created by s214092755 on 2017/05/17.
  */
 
-public class Merchandise extends Product {
+public class Merchandise extends Product implements Serializable{
     String type,size,colour;
     int onHand;
 

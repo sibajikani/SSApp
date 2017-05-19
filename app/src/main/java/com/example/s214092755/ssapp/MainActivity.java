@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         ft.add(R.id.frag_container,new register_fragment(), "register_frag");
         ft.add(R.id.frag_container,new forgotpassword_fragment(), "forgotpassword_frag");
         ft.add(R.id.frag_container,new product_fragment(), "product_frag");
-        ft.add(R.id.frag_container,new product_fragment(), "products_frag");
+        ft.add(R.id.frag_container,new MainSplash(), "home_frag");
         ft.add(R.id.frag_container,new product_fragment(), "current_order_frag");
         ft.add(R.id.frag_container,new product_fragment(), "transaction_history_frag");
 
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity
         if (id == 0)
         {
             //Switch to products fragment
-            frag = (getFragmentManager().findFragmentByTag("products_frag"));
+            frag = (getFragmentManager().findFragmentByTag("home_frag"));
             ft.replace(R.id.frag_container, frag);
             ft.commit();
         }
@@ -166,26 +166,6 @@ public class MainActivity extends AppCompatActivity
             frag = (getFragmentManager().findFragmentByTag("transaction_history_frag"));
             ft.replace(R.id.frag_container, frag);
             ft.commit();
-
-        }
-
-        userController.addUser();
-
-        // Handle navigation view item clicks here.
-        id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-            userController.addUser();
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 

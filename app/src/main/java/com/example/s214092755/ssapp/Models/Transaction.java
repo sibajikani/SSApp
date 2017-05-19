@@ -1,14 +1,17 @@
 package com.example.s214092755.ssapp.Models;
 
+import java.io.Serializable;
+
 /**
  * Created by s214092755 on 2017/05/17.
  */
 
-public class Transaction {
+public class Transaction implements Serializable{
     String tID,pID, date;
     int quantity,processed;
 
-    public Transaction(String tID, String pID, String date, int quantity, int processed) {
+    public Transaction(String tID, String pID, String date, int quantity, int processed)
+    {
         this.tID = tID;
         this.pID = pID;
         this.date = date;
