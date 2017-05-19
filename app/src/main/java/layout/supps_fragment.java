@@ -34,7 +34,9 @@ public class supps_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_supps_fragment, container, false);
-        GridView gridView = (GridView)view.findViewById(R.id.gridview_merch);
+        GridView gridView = (GridView)view.findViewById(R.id.gridview);
+
+
         ImageAdapter imageAdapter = new ImageAdapter(getContext());
         gridView.setAdapter(imageAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

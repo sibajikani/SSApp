@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity
 
         //add all fragments to fragment manager
         FragmentTransaction ft =  getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.frag_container,new login_fragment(), "login_frag");
-        ft.add(R.id.frag_container,new register_fragment(), "register_frag");
-        ft.add(R.id.frag_container,new forgotpassword_fragment(), "forgotpassword_frag");
+        //ft.add(R.id.frag_container,new login_fragment(), "login_frag");
+        //ft.add(R.id.frag_container,new register_fragment(), "register_frag");
+        //ft.add(R.id.frag_container,new forgotpassword_fragment(), "forgotpassword_frag");
         ft.add(R.id.frag_container,new product_fragment(), "product_frag");
         ft.add(R.id.frag_container,new product_fragment(), "products_frag");
         ft.add(R.id.frag_container,new product_fragment(), "current_order_frag");
@@ -169,25 +169,6 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        userController.addUser();
-
-        // Handle navigation view item clicks here.
-        id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-            userController.addUser();
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
