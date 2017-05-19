@@ -25,12 +25,14 @@ public class merch_fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_merch_fragment, container, false);
-        GridView gridView = (GridView)view.findViewById(R.id.gridview_merch);
+        GridView gridView = (GridView)view.findViewById(R.id.gridview);
         //gridView.setAdapter();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
                 //go to product page with information about product
+
             }
         });
         return view;

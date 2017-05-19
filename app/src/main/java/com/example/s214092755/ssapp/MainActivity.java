@@ -1,8 +1,10 @@
 package com.example.s214092755.ssapp;
 
+import android.app.Fragment;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,6 +16,11 @@ import android.view.MenuItem;
 import com.example.s214092755.ssapp.Controllers.userController;
 
 import java.io.IOException;
+
+import layout.forgotpassword_fragment;
+import layout.login_fragment;
+import layout.product_fragment;
+import layout.register_fragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,6 +34,20 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        MainSplash main = new MainSplash();
+
+        //add all fragments to fragment manager
+        FragmentTransaction ft =  getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.frag_container,new login_fragment(), "login_frag");
+        ft.add(R.id.frag_container,new register_fragment(), "register_frag");
+        ft.add(R.id.frag_container,new forgotpassword_fragment(), "forgotpassword_frag");
+        ft.add(R.id.frag_container,new product_fragment(), "product_frag");
+        ft.add(R.id.frag_container,new product_fragment(), "products_frag");
+        ft.add(R.id.frag_container,new product_fragment(), "current_order_frag");
+        ft.add(R.id.frag_container,new product_fragment(), "transaction_history_frag");
+
+        ft.commit();
+
         MainActivity context = MainActivity.this;
         dbh = new DatabaseHelper(context);
         try {
@@ -37,7 +58,6 @@ public class MainActivity extends AppCompatActivity
 
         userController = new userController(dbh,context);
 
-        MainSplash main = new MainSplash();
         getSupportFragmentManager().beginTransaction().add(R.id.frag_container,main).commit();
 
 
@@ -93,10 +113,66 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        //Fragment transaction
+        android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+        //Fragment to switch to
+        Fragment frag= null;
+
+        //Products
+        if (id == 0)
+        {
+            //Switch to products fragment
+            frag = (getFragmentManager().findFragmentByTag("products_frag"));
+            ft.replace(R.id.frag_container, frag);
+            ft.commit();
+        }
+
+        //Login
+        else if (id == 1)
+        {
+            //Switch to login fragment
+            frag = (getFragmentManager().findFragmentByTag("login_frag"));
+            ft.replace(R.id.frag_container, frag);
+            ft.commit();
+        }
+
+        //Register
+        else if (id == 2)
+        {
+            //Switch to register fragment
+            frag = (getFragmentManager().findFragmentByTag("register_frag"));
+            ft.replace(R.id.frag_container, frag);
+            ft.commit();
+        }
+
+        //Current Order
+        else if (id == 3)
+        {
+            //Switch to order fragment
+            frag = (getFragmentManager().findFragmentByTag("current_order_frag"));
+            ft.replace(R.id.frag_container, frag);
+            ft.commit();
+
+
+        }
+
+        //Transaction History
+        else if (id == 4)
+        {
+            //Switch to transaction fragment
+            frag = (getFragmentManager().findFragmentByTag("transaction_history_frag"));
+            ft.replace(R.id.frag_container, frag);
+            ft.commit();
+
+        }
+
         userController.addUser();
 
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        id = item.getItemId();
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
