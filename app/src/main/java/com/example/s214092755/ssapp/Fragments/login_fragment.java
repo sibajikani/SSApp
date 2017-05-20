@@ -49,7 +49,6 @@ public class login_fragment extends Fragment
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState)
         {
-            container.clearDisappearingChildren();
             // Inflate the layout for this fragment
             View view = inflater.inflate(R.layout.login, container, false);
 
@@ -63,7 +62,7 @@ public class login_fragment extends Fragment
             EditText edtUserName = (EditText)view.findViewById(R.id.edtUserName);
             EditText edtPassWord = (EditText)view.findViewById(R.id.edtPassword);
             final String UserName = edtUserName.getText().toString();
-            final String Password = edtUserName.getText().toString();
+            final String Password = edtPassWord.getText().toString();
 
             //create onclick listeners for extracted views
             ForgotPassword.setOnClickListener(new View.OnClickListener()
@@ -131,7 +130,7 @@ public class login_fragment extends Fragment
                         //display that an incorrect username, password combination was provided
                         else
                         {
-                            Toast.makeText(login_fragment.this.getContext(),"The username, password combination provided is incorrect, check the username and password",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(login_fragment.this.getContext(),"The username, password combination provided is incorrect, check the username and password",Toast.LENGTH_LONG).show();
                         }
 
                     }

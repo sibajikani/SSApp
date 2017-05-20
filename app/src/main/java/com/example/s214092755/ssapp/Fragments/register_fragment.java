@@ -3,6 +3,7 @@ package com.example.s214092755.ssapp.Fragments;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +27,24 @@ public class register_fragment extends Fragment
     private SQLiteDatabase sdb;
     private userController userController;
 
+
+
+    EditText edtName;
+
+    EditText edtSurname;
+    EditText edtEmail;
+    EditText edtContact;
+    EditText edtAddress;
+    Button Register;
+
     public register_fragment()
     {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -39,22 +55,24 @@ public class register_fragment extends Fragment
         View view = inflater.inflate(R.layout.registration, container, false);
 
         //extract Name, Surname, Email, Contact Number, Physical Address views
-        EditText edtName = (EditText)view.findViewById(R.id.edtRName);
-        final EditText edtSurname = (EditText)view.findViewById(R.id.edtRSurname);
-        EditText edtEmail = (EditText)view.findViewById(R.id.edtREmail);
-        EditText edtContact = (EditText)view.findViewById(R.id.edtRContact);
-        EditText edtAddress = (EditText)view.findViewById(R.id.edtRAddress);
 
-        //extract string values from extracted views
+        edtName = (EditText)view.findViewById(R.id.edtRName);
+      edtSurname = (EditText)view.findViewById(R.id.edtRSurname);
+         edtEmail = (EditText)view.findViewById(R.id.edtREmail);
+         edtContact = (EditText)view.findViewById(R.id.edtRContact);
+         edtAddress = (EditText)view.findViewById(R.id.edtRAddress);
+
+       /* //extract string values from extracted views
         final String Name = edtName.getText().toString();
         final String Surname = edtSurname.getText().toString();
         final String Email = edtEmail.getText().toString();
         final String ContactNum = edtContact.getText().toString();
-        final String Address = edtAddress.getText().toString();
+        final String Address = edtAddress.getText().toString();*/
 
         //extract functionality views i.e Cancel or Register buttons
         Button Cancel = (Button)view.findViewById(R.id.btnrCancel);
-        Button Register = (Button)view.findViewById(R.id.btnrConfirm);
+
+        Register = (Button)view.findViewById(R.id.btnrConfirm);
 
         dbh = new DatabaseHelper(getContext());
         try {
@@ -77,11 +95,26 @@ public class register_fragment extends Fragment
             }
 
         });
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //extract string values from extracted views
+
+
 
         Register.setOnClickListener(new View.OnClickListener()
         {
+
             @Override
             public void onClick(View v) {
+                final String Name = edtName.getText().toString();
+                final String Surname = edtSurname.getText().toString();
+                final String Email = edtEmail.getText().toString();
+                final String ContactNum = edtContact.getText().toString();
+                final String Address = edtAddress.getText().toString();
 
                 //Check if all fields are not empty
                 if (Name.length() > 0 && Surname.length() > 0 && Email.length() > 0 && ContactNum.length() > 0 && Address.length() > 0)
@@ -98,6 +131,7 @@ public class register_fragment extends Fragment
                     {
                         //Add the registration details to the database
                         Toast.makeText(register_fragment.this.getContext(),"You can do this",Toast.LENGTH_SHORT).show();
+                        userController.addUser(user);
 
                         //Go to password fragment with user details
 
@@ -108,16 +142,13 @@ public class register_fragment extends Fragment
                 else
                 {
                     //display that some fields are empty
-                    Toast.makeText(register_fragment.this.getContext(), "Not all fields have been completed, ensure that all the fields are completed", Toast.LENGTH_SHORT);
+                    Toast.makeText(getContext(), "Not all fields have been completed, ensure that all the fields are completed", Toast.LENGTH_SHORT).show();
                 }
             }
 
         });
 
-
-        return view;
     }
-
 
     //checks if the user is already registered on the system
     public boolean AlreadyRegistered()

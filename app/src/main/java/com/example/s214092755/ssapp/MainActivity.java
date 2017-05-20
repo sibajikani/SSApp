@@ -131,11 +131,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        /*FragmentManager manager = getSupportFragmentManager();
-        //Fragment transaction
-        FragmentTransaction ft = manager.beginTransaction();
-        //Fragment to switch to
-        android.support.v4.app.Fragment frag;*/
         Fragment fragment = null;
         Class fragmentClass = null;
 

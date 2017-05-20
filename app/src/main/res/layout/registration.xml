@@ -7,11 +7,12 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="13dp"
         android:layout_marginTop="14dp"
-        tools:text="Name"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:text="Name"
+        tools:text="Name" />
 
     <EditText
         android:id="@+id/edtRName"
@@ -27,10 +28,11 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Surname"
-        android:layout_below="@+id/edtRName"
         android:layout_alignStart="@+id/edtRName"
-        android:layout_marginTop="15dp" />
+        android:layout_below="@+id/edtRName"
+        android:layout_marginTop="15dp"
+        android:text="Surname"
+        tools:text="Surname" />
 
     <EditText
         android:id="@+id/edtRSurname"
@@ -48,8 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/edtRSurname"
         android:layout_below="@+id/edtRSurname"
-        android:layout_marginTop="13dp"
-        android:text="TextView"
+        android:layout_marginTop="12dp"
+        android:text="Email"
         tools:text="Email" />
 
     <EditText
@@ -66,10 +68,11 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        tools:text="Contact Number"
+        android:layout_alignStart="@+id/edtREmail"
         android:layout_below="@+id/edtREmail"
-        android:layout_alignStart="@+id/edtREmail" />
+        android:layout_marginTop="10dp"
+        android:text="Contact Number"
+        tools:text="Contact Number" />
 
     <EditText
         android:id="@+id/edtRContact"
@@ -88,42 +91,39 @@
         android:layout_alignStart="@+id/edtRContact"
         android:layout_below="@+id/edtRContact"
         android:layout_marginTop="13dp"
-        android:text="TextView"
-        tools:text="Physical Address" />
+        android:text="Physical Address" />
 
     <EditText
         android:id="@+id/edtRAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPostalAddress"
-        android:layout_below="@+id/textView11"
         android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/textView11" />
+        android:layout_alignStart="@+id/textView11"
+        android:layout_below="@+id/textView11"
+        android:ems="10"
+        android:inputType="textMultiLine|textPostalAddress" />
 
     <Button
         android:id="@+id/btnrCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Cancel"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/edtRAddress"
-        android:layout_marginBottom="11dp"
-        android:textColor="@android:color/white"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="@color/Cyan"
-        />
+        android:text="Cancel"
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/btnrConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="29dp"
-        tools:text="Register"
         android:layout_alignBaseline="@+id/btnrCancel"
         android:layout_alignBottom="@+id/btnrCancel"
         android:layout_alignParentEnd="true"
-        android:textColor="@android:color/white"
+        android:layout_marginEnd="29dp"
         android:backgroundTint="@color/Cyan"
-        />
+        android:text="Register"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>

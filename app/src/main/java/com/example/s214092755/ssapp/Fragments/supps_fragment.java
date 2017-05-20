@@ -58,7 +58,7 @@ public class supps_fragment extends Fragment {
 
 
         ImageAdapter imageAdapter = new ImageAdapter(getContext(),strings,mThumbIds);
-        //gridView.setAdapter(imageAdapter);
+        gridView.setAdapter(imageAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
