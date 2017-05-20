@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="UserName"
+        tools:text="Username"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="13dp" />
+
+    <EditText
+        android:id="@+id/edtUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:text="Password"
+        tools:text="Password"
+        android:layout_below="@+id/edtUserName"
+        android:layout_alignStart="@+id/edtUserName" />
+
+    <EditText
+        android:id="@+id/edtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/txtForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FOrgot Password"
+        android:textStyle="bold|italic"
+        tools:text="Forgot Password"
+        android:layout_marginTop="42dp"
+        android:layout_below="@+id/edtPassword"
+        android:layout_alignStart="@+id/edtPassword" />
+
+    <TextView
+        android:id="@+id/txtNotRegistered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Not Registered"
+        android:textStyle="bold|italic"
+        android:layout_alignBaseline="@+id/txtForgotPassword"
+        android:layout_alignBottom="@+id/txtForgotPassword"
+        android:layout_alignEnd="@+id/btnLogin" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:text="Login"
+        android:textColor="@android:color/white"
+        android:backgroundTint ="#00998f"
+        android:layout_alignBaseline="@+id/btnCancel"
+        android:layout_alignBottom="@+id/btnCancel"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="69dp"
+        android:text="Cancel"
+        android:textColor="@android:color/white"
+        android:backgroundTint ="#00998f"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/txtForgotPassword" />
+</RelativeLayout>
