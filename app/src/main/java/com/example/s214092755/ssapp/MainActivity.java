@@ -1,6 +1,6 @@
 package com.example.s214092755.ssapp;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +18,7 @@ import com.example.s214092755.ssapp.Controllers.userController;
 
 import java.io.IOException;
 
+import com.example.s214092755.ssapp.Fragments.BuyList;
 import com.example.s214092755.ssapp.Fragments.forgotpassword_fragment;
 import com.example.s214092755.ssapp.Fragments.login_fragment;
 import com.example.s214092755.ssapp.Fragments.product_fragment;
@@ -36,18 +37,17 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         //MainSplash main = new MainSplash();
-        FragmentManager fragmentManager=getSupportFragmentManager();
+        //FragmentManager fragmentManager=getSupportFragmentManager();
         //add all fragments to fragment manager
-        FragmentTransaction ft = fragmentManager.beginTransaction();
+        /*FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.add(R.id.frag_container,new login_fragment(), "login_frag");
           ft.add(R.id.frag_container,new register_fragment(), "register_frag");
          ft.add(R.id.frag_container,new forgotpassword_fragment(), "forgotpassword_frag");
         ft.add(R.id.frag_container,new product_fragment(), "product_frag");
         ft.add(R.id.frag_container,new product_fragment(), "current_order_frag");
         ft.add(R.id.frag_container,new product_fragment(), "transaction_history_frag");
-        ft.replace(R.id.frag_container, new MainSplash());
+        ft.replace(R.id.frag_container, new MainSplash());*/
 
-        ft.commit();
 
         MainActivity context = MainActivity.this;
         dbh = new DatabaseHelper(context);
@@ -64,6 +64,21 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Fragment fragment = null;
+        Class fragmentClass;
+
+        fragmentClass = MainSplash.class;
+
+        try{
+            fragment = (Fragment) fragmentClass.newInstance();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frag_container,fragment).commit();
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -116,58 +131,52 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FragmentManager manager = getSupportFragmentManager();
+        /*FragmentManager manager = getSupportFragmentManager();
         //Fragment transaction
         FragmentTransaction ft = manager.beginTransaction();
         //Fragment to switch to
-        android.support.v4.app.Fragment frag;
+        android.support.v4.app.Fragment frag;*/
+        Fragment fragment = null;
+        Class fragmentClass = null;
 
         //Products
         if (id == R.id.nav_products) {
             //Switch to products fragment
-            //frag = getFragmentManager().findFragmentByTag("home_frag"));
-            ft.replace(R.id.frag_container, frag);
-            ft.commit();
+            fragmentClass= product_fragment.class;
         }
 
         //Login
         else if (id == R.id.nav_login) {
             //Switch to login fragment
-            //frag = new login_fragment();
-            //frag = getFragmentManager().findFragmentById(R.layout.login);
-            //frag = (getFragmentManager().findFragmentByTag("login_frag"));
-            FragmentTransaction ft2 = manager.beginTransaction();
-            ft2.replace(R.id.frag_container,new login_fragment());
-            ft2.addToBackStack(null);
-            ft2.commit();
+            fragmentClass = login_fragment.class;
         }
 
         //Register
         else if (id == R.id.nav_register) {
             //Switch to register fragment
-            frag = (getFragmentManager().findFragmentByTag("register_frag"));
-            ft.replace(R.id.frag_container, frag);
-            ft.commit();
+            fragmentClass = register_fragment.class;
         }
 
         //Current Order
         else if (id == R.id.nav_order) {
             //Switch to order fragment
-            frag = (getFragmentManager().findFragmentByTag("current_order_frag"));
-            ft.replace(R.id.frag_container, frag);
-            ft.commit();
-
-
+            fragmentClass = BuyList.class;
         }
 
         //Transaction History
         else if (id == R.id.nav_history) {
             //Switch to transaction fragment
-            frag = (getFragmentManager().findFragmentByTag("transaction_history_frag"));
-            ft.replace(R.id.frag_container, frag);
-            ft.commit();
+            fragmentClass = FragmentTransaction.class;
 
         }
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frag_container,fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

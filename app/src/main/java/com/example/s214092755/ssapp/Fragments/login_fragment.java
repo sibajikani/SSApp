@@ -99,9 +99,9 @@ public class login_fragment extends Fragment
                         {
                             //User has provided correct username, password combination
                             //Log the user in and transfer to the order fragment
-                            FragmentManager manager = getFragmentManager();
-                            FragmentTransaction transaction = manager.beginTransaction();
-                            transaction.commit();
+                            //android.app.FragmentManager manager = getFragmentManager();
+                            //FragmentTransaction transaction = manager.beginTransaction();
+                            //transaction.commit();
                             Bundle bundle = new Bundle();
 
                             //manager.putFragment(bundle,"login",new login_fragment());
