@@ -1,11 +1,14 @@
 package com.example.s214092755.ssapp.Controllers;
 
 import android.content.Context;
+import android.media.Image;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.s214092755.ssapp.R;
 
@@ -17,13 +20,17 @@ import java.util.List;
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
+    private final String[] web;
+    private final int[] Imageid;
 
-    public ImageAdapter(Context c) {
+    public ImageAdapter(Context c, String[] web,int[] Imageid) {
         mContext = c;
+        this.Imageid = Imageid;
+        this.web = web;
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        return web.length;
     }
 
     public Object getItem(int position) {
@@ -36,23 +43,24 @@ public class ImageAdapter extends BaseAdapter {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
+        View grid;
+        LayoutInflater inflater = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            // if it's not recycled, initialize some attributes
-            imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            grid = inflater.inflate(R.layout.grid_item, null);
+            TextView textView = (TextView) grid.findViewById(R.id.gridText);
+            ImageView imageView = (ImageView)grid.findViewById(R.id.gridImage);
+            textView.setText(web[position]);
+            imageView.setImageResource(Imageid[position]);
         } else {
-            imageView = (ImageView) convertView;
+            grid = convertView;
         }
 
-        imageView.setImageResource(mThumbIds[position]);
-        return imageView;
+        return grid;
     }
 
     // references to our images
-    private Integer[] mThumbIds = {
+    /*private Integer[] mThumbIds = {
             R.drawable.images, R.drawable.n_tech_1kg_american_870x1110,
             R.drawable.new_usn_nl_towel, R.drawable.tornado_shaker_front_b_1,
             R.drawable.nutritech_anabolicmass5_2, R.drawable.nutritechfit_hunter_cap_product_page,
@@ -63,5 +71,5 @@ public class ImageAdapter extends BaseAdapter {
             R.drawable.nutritechfit_amino_pre_250x317, R.drawable.nutritech_shakepro400_2,
             R.drawable.nutritechfit_2_2_litre_colossus_bottle_1_250x317,
             R.drawable.nutribot_tee_front_1_11
-    };
+    };*/
 }

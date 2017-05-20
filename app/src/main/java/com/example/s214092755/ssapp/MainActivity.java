@@ -41,10 +41,11 @@ public class MainActivity extends AppCompatActivity
         //ft.add(R.id.frag_container,new login_fragment(), "login_frag");
         //ft.add(R.id.frag_container,new register_fragment(), "register_frag");
         //ft.add(R.id.frag_container,new forgotpassword_fragment(), "forgotpassword_frag");
-        ft.add(R.id.frag_container,new product_fragment(), "product_frag");
-        ft.add(R.id.frag_container,new product_fragment(), "products_frag");
-        ft.add(R.id.frag_container,new product_fragment(), "current_order_frag");
-        ft.add(R.id.frag_container,new product_fragment(), "transaction_history_frag");
+        ft.add(R.id.frag_container, new MainSplash(),"Home");
+        //ft.add(R.id.frag_container,new product_fragment(), "product_frag");
+        //ft.add(R.id.frag_container,new product_fragment(), "products_frag");
+        //ft.add(R.id.frag_container,new product_fragment(), "current_order_frag");
+        //ft.add(R.id.frag_container,new product_fragment(), "transaction_history_frag");
 
         ft.commit();
 
