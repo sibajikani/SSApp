@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.example.s214092755.ssapp.Controllers.ImageAdapter;
 import com.example.s214092755.ssapp.R;
 
 
@@ -25,7 +26,9 @@ public class merch_fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_merch_fragment, container, false);
-        GridView gridView = (GridView)view.findViewById(R.id.gridview);
+        GridView gridView = (GridView)view.findViewById(R.id.gridview_merch);
+        //ImageAdapter imageAdapter = new ImageAdapter(getContext(),)
+
         //gridView.setAdapter();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

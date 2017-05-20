@@ -18,64 +18,44 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link supps_fragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link supps_fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class supps_fragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
 
     public supps_fragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment supps_fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static supps_fragment newInstance(String param1, String param2)
-    {
-        supps_fragment fragment = new supps_fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_supps_fragment, container, false);
-        GridView gridView = (GridView)view.findViewById(R.id.gridview_merch);
-        ImageAdapter imageAdapter = new ImageAdapter(getContext(), new ArrayList<Object>());
-        gridView.setAdapter(imageAdapter);
+        GridView gridView = (GridView)view.findViewById(R.id.gridview);
+
+        /*private Integer[] mThumbIds = {
+            R.drawable.images, R.drawable.n_tech_1kg_american_870x1110,
+            R.drawable.new_usn_nl_towel, R.drawable.tornado_shaker_front_b_1,
+            R.drawable.nutritech_anabolicmass5_2, R.drawable.nutritechfit_hunter_cap_product_page,
+            R.drawable.nutritechfit_lifting_gloves_product_page1_250x317, R.drawable.nutritechfit_nylon_lifting_belt_product_page1_250x317,
+            R.drawable.nutritechfit_pullover_250x317, R.drawable.usn_pure_protein1,
+            R.drawable.usn_b4_bomb, R.drawable.usn_100_premium_whey_protein,
+            R.drawable.nutritechfit_mens_summer_swolestice_singlet_pink,
+            R.drawable.nutritechfit_amino_pre_250x317, R.drawable.nutritech_shakepro400_2,
+            R.drawable.nutritechfit_2_2_litre_colossus_bottle_1_250x317,
+            R.drawable.nutribot_tee_front_1_11
+    };*/
+        //Get list of supplements and add to list
+
+
+        //Get list of supplement text
+
+
+        //ImageAdapter imageAdapter = new ImageAdapter(getContext());
+        //gridView.setAdapter(imageAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

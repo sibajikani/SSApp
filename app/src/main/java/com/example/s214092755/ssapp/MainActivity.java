@@ -37,14 +37,14 @@ public class MainActivity extends AppCompatActivity
         MainSplash main = new MainSplash();
 
         //add all fragments to fragment manager
-        FragmentTransaction ft =  getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.frag_container,new login_fragment(), "login_frag");
-        ft.add(R.id.frag_container,new register_fragment(), "register_frag");
-        ft.add(R.id.frag_container,new forgotpassword_fragment(), "forgotpassword_frag");
-        ft.add(R.id.frag_container,new product_fragment(), "product_frag");
-        ft.add(R.id.frag_container,new MainSplash(), "home_frag");
-        ft.add(R.id.frag_container,new product_fragment(), "current_order_frag");
-        ft.add(R.id.frag_container,new product_fragment(), "transaction_history_frag");
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.add(R.id.frag_container,new login_fragment(), "login_frag");
+//        ft.add(R.id.frag_container,new register_fragment(), "register_frag");
+//        ft.add(R.id.frag_container,new forgotpassword_fragment(), "forgotpassword_frag");
+//        ft.add(R.id.frag_container,new product_fragment(), "product_frag");
+//        ft.add(R.id.frag_container,new product_fragment(), "current_order_frag");
+//        ft.add(R.id.frag_container,new product_fragment(), "transaction_history_frag");
+        ft.add(R.id.frag_container, new MainSplash(), "Home");
 
         ft.commit();
 
@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity
             throw new Error("UnableToUpdateDatabase");
         }
 
-        userController = new userController(dbh,context);
+        userController = new userController(dbh, context);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.frag_container,main).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.frag_container, main).commit();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -119,11 +119,10 @@ public class MainActivity extends AppCompatActivity
         //Fragment transaction
         android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
         //Fragment to switch to
-        Fragment frag= null;
+        Fragment frag = null;
 
         //Products
-        if (id == 0)
-        {
+        if (id == 0) {
             //Switch to products fragment
             frag = (getFragmentManager().findFragmentByTag("home_frag"));
             ft.replace(R.id.frag_container, frag);
@@ -131,8 +130,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         //Login
-        else if (id == 1)
-        {
+        else if (id == 1) {
             //Switch to login fragment
             frag = (getFragmentManager().findFragmentByTag("login_frag"));
             ft.replace(R.id.frag_container, frag);
@@ -140,8 +138,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         //Register
-        else if (id == 2)
-        {
+        else if (id == 2) {
             //Switch to register fragment
             frag = (getFragmentManager().findFragmentByTag("register_frag"));
             ft.replace(R.id.frag_container, frag);
@@ -149,8 +146,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         //Current Order
-        else if (id == 3)
-        {
+        else if (id == 3) {
             //Switch to order fragment
             frag = (getFragmentManager().findFragmentByTag("current_order_frag"));
             ft.replace(R.id.frag_container, frag);
@@ -160,8 +156,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         //Transaction History
-        else if (id == 4)
-        {
+        else if (id == 4) {
             //Switch to transaction fragment
             frag = (getFragmentManager().findFragmentByTag("transaction_history_frag"));
             ft.replace(R.id.frag_container, frag);
