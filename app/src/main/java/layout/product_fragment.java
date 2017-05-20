@@ -53,10 +53,14 @@ public class product_fragment extends Fragment
         TextView Type = (TextView)view.findViewById(R.id.txtType);
         TextView Size = (TextView)view.findViewById(R.id.txtSize);
         TextView FlavColor = (TextView)view.findViewById(R.id.txtFlavourColour);
-        TextView StockOnHand = (TextView)view.findViewById(R.id.txtStock);
+        final TextView StockOnHand = (TextView)view.findViewById(R.id.txtStock);
         final TextView UnitPrice = (TextView)view.findViewById(R.id.txtUnitPrice);
         final TextView Quantity = (TextView)view.findViewById(R.id.txtQuantity);
         final TextView TotalPrice = (TextView)view.findViewById(R.id.txtTotalPrice);
+
+
+        //FIll the textviews with the fields of the product passed through in this fragment's bundle
+
 
         //Extract Add, Subtract imageviews and Cancel, AddToCart buttons
         ImageView Add = (ImageView)view.findViewById(R.id.imgAdd);
@@ -181,39 +185,42 @@ public class product_fragment extends Fragment
                 Quantity.setText(cur_quantity.toString());
 
                 //Update the total price textview
-
+                Integer unit_price = Integer.parseInt(UnitPrice.getText().toString());
+                Integer total = unit_price* cur_quantity;
+                TotalPrice.setText(total.toString());
 
             }
         });
 
         //Add imageview
+        Add.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
 
+                //Increase the quantity selected
+                Integer cur_quantity = Integer.parseInt(Quantity.getText().toString());
+                Integer onHand = Integer.parseInt(StockOnHand.getText().toString());
+
+                if (cur_quantity < onHand)
+                {
+                    cur_quantity = cur_quantity + 1;
+                }
+
+                Quantity.setText(cur_quantity.toString());
+
+                //Update the total price textview
+                Integer unit_price = Integer.parseInt(UnitPrice.getText().toString());
+                Integer total = unit_price* cur_quantity;
+                TotalPrice.setText(total.toString());
+
+            }
+        });
 
 
 
         return view;
-    }
-
-    //checks if the username exists within the database
-    public boolean UserFound(String UserName)
-    {
-        boolean found = false;
-
-        //Run through database, checking if user exists
-
-
-        return found;
-    }
-
-    //checks if the username and password combination provided is correct
-    public boolean CorrectCredentials(String UserName, String Password)
-    {
-        boolean found = false;
-
-        //Run through database, checking if the username, password combination is correct
-
-
-        return found;
     }
 
 
