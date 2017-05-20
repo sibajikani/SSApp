@@ -3,6 +3,7 @@ package com.example.s214092755.ssapp;
 import android.app.Fragment;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -17,10 +18,10 @@ import com.example.s214092755.ssapp.Controllers.userController;
 
 import java.io.IOException;
 
-import layout.forgotpassword_fragment;
-import layout.login_fragment;
-import layout.product_fragment;
-import layout.register_fragment;
+import com.example.s214092755.ssapp.Fragments.forgotpassword_fragment;
+import com.example.s214092755.ssapp.Fragments.login_fragment;
+import com.example.s214092755.ssapp.Fragments.product_fragment;
+import com.example.s214092755.ssapp.Fragments.register_fragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,17 +35,17 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MainSplash main = new MainSplash();
-
+        //MainSplash main = new MainSplash();
+        FragmentManager fragmentManager=getSupportFragmentManager();
         //add all fragments to fragment manager
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        ft.add(R.id.frag_container,new login_fragment(), "login_frag");
-//        ft.add(R.id.frag_container,new register_fragment(), "register_frag");
-//        ft.add(R.id.frag_container,new forgotpassword_fragment(), "forgotpassword_frag");
-//        ft.add(R.id.frag_container,new product_fragment(), "product_frag");
-//        ft.add(R.id.frag_container,new product_fragment(), "current_order_frag");
-//        ft.add(R.id.frag_container,new product_fragment(), "transaction_history_frag");
-        ft.add(R.id.frag_container, new MainSplash(), "Home");
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.add(R.id.frag_container,new login_fragment(), "login_frag");
+          ft.add(R.id.frag_container,new register_fragment(), "register_frag");
+         ft.add(R.id.frag_container,new forgotpassword_fragment(), "forgotpassword_frag");
+        ft.add(R.id.frag_container,new product_fragment(), "product_frag");
+        ft.add(R.id.frag_container,new product_fragment(), "current_order_frag");
+        ft.add(R.id.frag_container,new product_fragment(), "transaction_history_frag");
+        ft.replace(R.id.frag_container, new MainSplash());
 
         ft.commit();
 
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity
 
         userController = new userController(dbh, context);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.frag_container, main).commit();
+        //getSupportFragmentManager().beginTransaction().add(R.id.frag_container, main).commit();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -115,30 +116,34 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        FragmentManager manager = getSupportFragmentManager();
         //Fragment transaction
-        android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = manager.beginTransaction();
         //Fragment to switch to
-        Fragment frag = null;
+        android.support.v4.app.Fragment frag;
 
         //Products
-        if (id == 0) {
+        if (id == R.id.nav_products) {
             //Switch to products fragment
-            frag = (getFragmentManager().findFragmentByTag("home_frag"));
+            //frag = getFragmentManager().findFragmentByTag("home_frag"));
             ft.replace(R.id.frag_container, frag);
             ft.commit();
         }
 
         //Login
-        else if (id == 1) {
+        else if (id == R.id.nav_login) {
             //Switch to login fragment
-            frag = (getFragmentManager().findFragmentByTag("login_frag"));
-            ft.replace(R.id.frag_container, frag);
-            ft.commit();
+            //frag = new login_fragment();
+            //frag = getFragmentManager().findFragmentById(R.layout.login);
+            //frag = (getFragmentManager().findFragmentByTag("login_frag"));
+            FragmentTransaction ft2 = manager.beginTransaction();
+            ft2.replace(R.id.frag_container,new login_fragment());
+            ft2.addToBackStack(null);
+            ft2.commit();
         }
 
         //Register
-        else if (id == 2) {
+        else if (id == R.id.nav_register) {
             //Switch to register fragment
             frag = (getFragmentManager().findFragmentByTag("register_frag"));
             ft.replace(R.id.frag_container, frag);
@@ -146,7 +151,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         //Current Order
-        else if (id == 3) {
+        else if (id == R.id.nav_order) {
             //Switch to order fragment
             frag = (getFragmentManager().findFragmentByTag("current_order_frag"));
             ft.replace(R.id.frag_container, frag);
@@ -156,7 +161,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         //Transaction History
-        else if (id == 4) {
+        else if (id == R.id.nav_history) {
             //Switch to transaction fragment
             frag = (getFragmentManager().findFragmentByTag("transaction_history_frag"));
             ft.replace(R.id.frag_container, frag);

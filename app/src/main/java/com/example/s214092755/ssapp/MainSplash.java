@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import layout.merch_fragment;
-import layout.supps_fragment;
+import com.example.s214092755.ssapp.Fragments.merch_fragment;
+import com.example.s214092755.ssapp.Fragments.supps_fragment;
 
 public class MainSplash extends Fragment {
     private FragmentTabHost tabHost;
@@ -30,7 +30,8 @@ public class MainSplash extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_main_splash, container, false);
 
         tabHost = (FragmentTabHost)view.findViewById(android.R.id.tabhost);
-        tabHost.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
+        tabHost.setup(getActivity(), getChildFragmentManager(), android.R.id.tabcontent);
+
         tabHost.addTab(tabHost.newTabSpec("supps_fragment").setIndicator("Supplements"), supps_fragment.class,null);
         tabHost.addTab(tabHost.newTabSpec("merch_fragment").setIndicator("Merchandise"), merch_fragment.class,null);
 

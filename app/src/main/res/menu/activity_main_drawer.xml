@@ -7,15 +7,15 @@
             android:icon="@drawable/products"
             android:title="Products" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_login"
             android:icon="@drawable/login"
             android:title="Login" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_register"
             android:icon="@drawable/register"
             android:title="Register" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_order"
             android:icon="@drawable/current_order"
             android:title="Current Order" />
     </group>
@@ -23,7 +23,7 @@
     <item android:title="History">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_history"
                 android:icon="@drawable/transaction_history"
                 android:title="Transaction History" />
 

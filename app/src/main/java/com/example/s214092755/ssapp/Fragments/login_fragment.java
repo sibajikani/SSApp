@@ -1,27 +1,24 @@
-package layout;
+package com.example.s214092755.ssapp.Fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.app.FragmentTransaction;
+import android.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.s214092755.ssapp.R;
-
-import java.util.ArrayList;
 
 
 public class login_fragment extends Fragment
@@ -31,12 +28,28 @@ public class login_fragment extends Fragment
         public login_fragment()
         {
             // Required empty public constructor
+
+        }
+
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        public static login_fragment newInstance() {
+
+            Bundle args = new Bundle();
+
+            login_fragment fragment = new login_fragment();
+            fragment.setArguments(args);
+            return fragment;
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState)
         {
+            container.clearDisappearingChildren();
             // Inflate the layout for this fragment
             View view = inflater.inflate(R.layout.login, container, false);
 
@@ -73,6 +86,7 @@ public class login_fragment extends Fragment
 
             Login.setOnClickListener(new View.OnClickListener()
             {
+                @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void onClick(View v)
                 {
@@ -87,12 +101,13 @@ public class login_fragment extends Fragment
                             //Log the user in and transfer to the order fragment
                             FragmentManager manager = getFragmentManager();
                             FragmentTransaction transaction = manager.beginTransaction();
+                            transaction.commit();
                             Bundle bundle = new Bundle();
 
-                            manager.putFragment(bundle,"login",new login_fragment());
+                            //manager.putFragment(bundle,"login",new login_fragment());
 
 
-                            //Building a pop dialog
+                            /*//Building a pop dialog
                             final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                             builder.setTitle("Error");
                             builder.setMessage("whatever");
@@ -108,7 +123,7 @@ public class login_fragment extends Fragment
                                     builder.setCancelable(true);
                                 }
                             });
-                            builder.show();
+                            builder.show();*/
 
 
                         }

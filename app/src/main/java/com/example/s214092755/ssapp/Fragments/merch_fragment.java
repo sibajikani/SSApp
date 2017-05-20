@@ -1,4 +1,4 @@
-package layout;
+package com.example.s214092755.ssapp.Fragments;
 
 import android.content.Context;
 import android.net.Uri;

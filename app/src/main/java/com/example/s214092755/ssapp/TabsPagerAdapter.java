@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import layout.merch_fragment;
-import layout.supps_fragment;
+import com.example.s214092755.ssapp.Fragments.merch_fragment;
+import com.example.s214092755.ssapp.Fragments.supps_fragment;
 
 /**
  * Created by s214092755 on 2017/05/11.

@@ -1,4 +1,4 @@
-package layout;
+package com.example.s214092755.ssapp.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -36,7 +36,7 @@ public class supps_fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_supps_fragment, container, false);
         GridView gridView = (GridView)view.findViewById(R.id.gridview);
 
-        /*private Integer[] mThumbIds = {
+        int[] mThumbIds = {
             R.drawable.images, R.drawable.n_tech_1kg_american_870x1110,
             R.drawable.new_usn_nl_towel, R.drawable.tornado_shaker_front_b_1,
             R.drawable.nutritech_anabolicmass5_2, R.drawable.nutritechfit_hunter_cap_product_page,
@@ -47,14 +47,17 @@ public class supps_fragment extends Fragment {
             R.drawable.nutritechfit_amino_pre_250x317, R.drawable.nutritech_shakepro400_2,
             R.drawable.nutritechfit_2_2_litre_colossus_bottle_1_250x317,
             R.drawable.nutribot_tee_front_1_11
-    };*/
+    };
         //Get list of supplements and add to list
-
+        String[] strings = new String[mThumbIds.length];
+        for(int x = 0;x<strings.length;x++){
+            strings[x]= "Supp "+x;
+        }
 
         //Get list of supplement text
 
 
-        //ImageAdapter imageAdapter = new ImageAdapter(getContext());
+        ImageAdapter imageAdapter = new ImageAdapter(getContext(),strings,mThumbIds);
         //gridView.setAdapter(imageAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
