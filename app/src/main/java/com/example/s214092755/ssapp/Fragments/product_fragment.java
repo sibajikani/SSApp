@@ -125,7 +125,7 @@ public class product_fragment extends Fragment
                     Calendar c = Calendar.getInstance();
                     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
                     String curDate = df.format(c.getTime());
-                    Transaction transaction = new Transaction(newSup.getID(),Integer.parseInt(Quantity.getText().toString()),0);
+                    Transaction transaction = new Transaction(newSup.getID(), "", Integer.parseInt(Quantity.getText().toString()),0);
                     Order_bundle.putSerializable("TS:" + SupplementsOrdered, transaction);
                 }
 
@@ -147,7 +147,7 @@ public class product_fragment extends Fragment
                     //create new transaction to record the quantity selected
                     //Current date
                     assert newMerch != null;
-                    Transaction transaction = new Transaction(newMerch.getID(),Integer.parseInt(Quantity.getText().toString()),0);
+                    Transaction transaction = new Transaction(newMerch.getID(), "", Integer.parseInt(Quantity.getText().toString()),0);
                     Order_bundle.putSerializable("TM:" + MerchandiseOrdered, transaction);
 
                 }

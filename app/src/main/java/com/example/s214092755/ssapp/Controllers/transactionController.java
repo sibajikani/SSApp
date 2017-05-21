@@ -10,6 +10,7 @@ import com.example.s214092755.ssapp.Models.Transaction;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -21,21 +22,30 @@ public class transactionController {
     private DatabaseHelper mDBHelper;
     private Context context;
     private final String TABLE_NAME = "Transaction";
+    ArrayList<Transaction> transactions;
 
     public transactionController(DatabaseHelper mDBHelper, Context context) {
         this.mDBHelper = mDBHelper;
         this.context = context;
+        transactions = new ArrayList<>();
     }
 
-    public void addTransaction(Transaction transaction) {
+    public void addTransaction() {
         SQLiteDatabase db = mDBHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("processed", transaction.getProcessed());
+        /*values.put("processed", transaction.getProcessed());
         values.put("quantity", transaction.getQuantity());
         values.put("pID",transaction.getpID());
         //values.put("date", Calendar.DATE);
         values.put("date",getDate());
+        values.put("userID", transaction.getUserID());*/
+        values.put("processed", 0);
+        values.put("quantity", 20);
+        values.put("pID",9);
+        //values.put("date", Calendar.DATE);
+        values.put("date",getDate());
+        values.put("userID", 1);
 
         // Inserting Row
         db.insert(TABLE_NAME, null, values);
@@ -55,5 +65,10 @@ public class transactionController {
         }
         return null;
     }
+
+    public void addToList(){
+
+    }
+
 
 }
