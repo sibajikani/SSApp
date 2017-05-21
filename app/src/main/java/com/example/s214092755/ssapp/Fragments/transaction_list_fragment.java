@@ -33,7 +33,7 @@ public class transaction_list_fragment extends Fragment {
 
         transactionAdapter transactionAdapter = new transactionAdapter(getContext(),new Transaction[4]);
 
-        ListView listView = (ListView)view.findViewWithTag("transList");
+        ListView listView = (ListView)view.findViewById(R.id.trans_list);
         listView.setAdapter(transactionAdapter);
 
 

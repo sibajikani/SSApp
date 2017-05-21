@@ -6,13 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.s214092755.ssapp.Models.Duo;
 import com.example.s214092755.ssapp.R;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -21,17 +25,15 @@ import java.util.List;
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
-    private final String[] web;
-    private final int[] Imageid;
+    private ArrayList<Duo> data;
 
-    public ImageAdapter(Context c, String[] web,int[] Imageid) {
+    public ImageAdapter(Context c, ArrayList<Duo> data) {
         mContext = c;
-        this.Imageid = Imageid;
-        this.web = web;
+        this.data = data;
     }
 
     public int getCount() {
-        return web.length;
+        return data.size();
     }
 
     public Object getItem(int position) {
@@ -53,11 +55,18 @@ public class ImageAdapter extends BaseAdapter {
             TextView textView = (TextView) grid.findViewById(R.id.gridText);
             ImageView imageView = (ImageView)grid.findViewById(R.id.gridImage);
 
-            textView.setText(web[position]);
+            textView.setText(data.get(position).getName());
 
+            textView.setMaxHeight(50);
+            textView.setMaxWidth(50);
 
-            imageView.setImageResource(Imageid[position]);
-            grid.setLayoutParams(new GridView.LayoutParams(250, 250));
+            imageView.setMaxHeight(50);
+            imageView.setMaxWidth(50);
+
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+            imageView.setImageResource(data.get(position).getRes());
+            grid.setLayoutParams(new GridView.LayoutParams(200, 200));
             //grid.setPadding(5, 5, 5, 5);
         } else {
             grid = convertView;
@@ -66,17 +75,4 @@ public class ImageAdapter extends BaseAdapter {
         return grid;
     }
 
-    // references to our images
-    /*private Integer[] mThumbIds = {
-            R.drawable.images, R.drawable.n_tech_1kg_american_870x1110,
-            R.drawable.new_usn_nl_towel, R.drawable.tornado_shaker_front_b_1,
-            R.drawable.nutritech_anabolicmass5_2, R.drawable.nutritechfit_hunter_cap_product_page,
-            R.drawable.nutritechfit_lifting_gloves_product_page1_250x317, R.drawable.nutritechfit_nylon_lifting_belt_product_page1_250x317,
-            R.drawable.nutritechfit_pullover_250x317, R.drawable.usn_pure_protein1,
-            R.drawable.usn_b4_bomb, R.drawable.usn_100_premium_whey_protein,
-            R.drawable.nutritechfit_mens_summer_swolestice_singlet_pink,
-            R.drawable.nutritechfit_amino_pre_250x317, R.drawable.nutritech_shakepro400_2,
-            R.drawable.nutritechfit_2_2_litre_colossus_bottle_1_250x317,
-            R.drawable.nutribot_tee_front_1_11
-    };*/
 }

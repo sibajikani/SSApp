@@ -1,25 +1,16 @@
 package com.example.s214092755.ssapp.Fragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.s214092755.ssapp.Models.Merchandise;
 import com.example.s214092755.ssapp.Models.Supplement;
@@ -27,9 +18,7 @@ import com.example.s214092755.ssapp.Models.Transaction;
 import com.example.s214092755.ssapp.R;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class product_fragment extends Fragment
@@ -51,7 +40,7 @@ public class product_fragment extends Fragment
                              Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.login, container, false);
+        View view = inflater.inflate(R.layout.product, container, false);
 
 
         //extract views for Product Name, Type, Size, Flavor/Color, StockOnHand, UnitPrice, Quantity, Total Price
@@ -136,7 +125,7 @@ public class product_fragment extends Fragment
                     Calendar c = Calendar.getInstance();
                     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
                     String curDate = df.format(c.getTime());
-                    Transaction transaction = new Transaction("",newSup.getID(),curDate,Integer.parseInt(Quantity.getText().toString()),0);
+                    Transaction transaction = new Transaction(newSup.getID(),Integer.parseInt(Quantity.getText().toString()),0);
                     Order_bundle.putSerializable("TS:" + SupplementsOrdered, transaction);
                 }
 
@@ -157,10 +146,8 @@ public class product_fragment extends Fragment
 
                     //create new transaction to record the quantity selected
                     //Current date
-                    Calendar c = Calendar.getInstance();
-                    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-                    String curDate = df.format(c.getTime());
-                    Transaction transaction = new Transaction("",newMerch.getID(),curDate,Integer.parseInt(Quantity.getText().toString()),0);
+                    assert newMerch != null;
+                    Transaction transaction = new Transaction(newMerch.getID(),Integer.parseInt(Quantity.getText().toString()),0);
                     Order_bundle.putSerializable("TM:" + MerchandiseOrdered, transaction);
 
                 }

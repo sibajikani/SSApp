@@ -34,8 +34,16 @@ public class transactionAdapter extends ArrayAdapter<Transaction> {
         TextView detailsText = (TextView) convertView.findViewById(R.id.details_trans_text);
         TextView payText = (TextView) convertView.findViewById(R.id.pay_trans_text);
         // Populate the data into the template view using the data object
-        detailsText.setText("");
-        payText.setText("");
+        assert transaction != null;
+        String detailsString = "Bought "
+                .concat(String.valueOf(transaction.getQuantity()))
+                .concat(" Product name")
+                .concat(" Product size");
+        detailsText.setText(detailsString);
+        int unitPrice=4;
+        String payString = "Paid R".concat(String.valueOf(transaction.getQuantity()*unitPrice))
+                .concat(" on").concat(String.valueOf(transaction.getDate()));
+        payText.setText(payString);
         // Return the completed view to render on screen
         return convertView;
     }

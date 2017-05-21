@@ -7,24 +7,15 @@ import java.io.Serializable;
  */
 
 public class Transaction implements Serializable{
-    String tID,pID, date;
-    int quantity,processed;
+    private String pID;
+    private String date;
+    private int quantity,processed;
 
-    public Transaction(String tID, String pID, String date, int quantity, int processed)
+    public Transaction(String pID, int quantity, int processed)
     {
-        this.tID = tID;
         this.pID = pID;
-        this.date = date;
         this.quantity = quantity;
         this.processed = processed;
-    }
-
-    public String gettID() {
-        return tID;
-    }
-
-    public void settID(String tID) {
-        this.tID = tID;
     }
 
     public String getpID() {

@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.s214092755.ssapp.Controllers.ImageAdapter;
+import com.example.s214092755.ssapp.DatabaseHelper;
+import com.example.s214092755.ssapp.Models.Duo;
 import com.example.s214092755.ssapp.Models.Transaction;
 import com.example.s214092755.ssapp.R;
 
@@ -53,12 +55,15 @@ public class supps_fragment extends Fragment {
         for(int x = 0;x<strings.length;x++){
             strings[x]= "Supp "+x;
         }
-
+        ArrayList<Duo> duos = new ArrayList<>();
         //Get list of supplement text
+        for(int x=0;x<mThumbIds.length;x++){
+            duos.add(new Duo(strings[x],mThumbIds[x]));
+        }
 
-
-        ImageAdapter imageAdapter = new ImageAdapter(getContext(),strings,mThumbIds);
+        ImageAdapter imageAdapter = new ImageAdapter(getContext(),duos);
         gridView.setAdapter(imageAdapter);
+        gridView.setNumColumns(2);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

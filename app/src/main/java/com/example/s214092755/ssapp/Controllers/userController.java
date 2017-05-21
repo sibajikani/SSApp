@@ -37,15 +37,6 @@ public class userController {
         //key is auto-generated
         values.put("recKey",user.getRecKey());
 
-//        values.put("name", "name");
-//        values.put("surname","surname");
-//        values.put("contactNr","contact");
-//        values.put("email", "email");
-//        values.put("address","address");
-//        values.put("password", "pass");
-
-        //key is auto-generated
-        //values.put("recKey","rec");
 
         // Inserting Row
         db.insert(TABLE_NAME, null, values);
