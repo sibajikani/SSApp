@@ -130,10 +130,10 @@ public class login_fragment extends Fragment
                             if (userController.checkLogin(UserName, Password) != null) {
                                 //User has provided correct username, password combination
                                 //Log the user in and transfer to the order fragment
-                                Toast.makeText(getContext(), "The username, password combination provided, check the username and password", Toast.LENGTH_LONG).show();
-                                android.support.v4.app.FragmentManager manager = getFragmentManager();
+                                Toast.makeText(getContext(), "The incorrect password was entered. Try again", Toast.LENGTH_LONG).show();
+                                /*android.support.v4.app.FragmentManager manager = getFragmentManager();
                                 FragmentTransaction transaction = manager.beginTransaction().replace(R.id.frag_container, new product_fragment());
-                                transaction.commit();
+                                transaction.commit();*/
 
                             }
                             //display that an incorrect username, password combination was provided

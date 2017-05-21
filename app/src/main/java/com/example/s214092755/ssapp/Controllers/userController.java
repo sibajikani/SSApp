@@ -112,24 +112,65 @@ public class userController {
                 null);                      //The sort order
 
         int cursorCount = cursor.getCount();
-
-        String id = cursor.getString(cursor.getColumnIndex("userID"));
-        String name = cursor.getString(cursor.getColumnIndex("name"));
-        String email1 = cursor.getString(cursor.getColumnIndex("email"));
-        String surname = cursor.getString(cursor.getColumnIndex("surname"));
-        String contactNr = cursor.getString(cursor.getColumnIndex("contactNr"));
-        String address = cursor.getString(cursor.getColumnIndex("address"));
-
-        if(cursorCount > 0)
-            return null;
+        if (cursorCount > 0) {
+            String id = cursor.getString(cursor.getColumnIndex("userID"));
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            String email1 = cursor.getString(cursor.getColumnIndex("email"));
+            String surname = cursor.getString(cursor.getColumnIndex("surname"));
+            String contactNr = cursor.getString(cursor.getColumnIndex("contactNr"));
+            String address = cursor.getString(cursor.getColumnIndex("address"));
+            return new User(id,name,surname,email1,contactNr,address,"","");
+        }
 
         cursor.close();
         db.close();
 
-        return new User(id,name,surname,email1,contactNr,address,"","");
-
-
+        return null;
     }
+
+    public boolean checkRecKey(String recKey){
+        // array of columns to fetch
+        String[] columns = {
+                "userID"
+        };
+        SQLiteDatabase db = mDBHelper.getReadableDatabase();
+
+        // selection criteria
+        String selection = "recKey" + " = ?";
+
+        // selection argument
+        String[] selectionArgs = {recKey};
+
+        // query user table with condition
+        /**
+         * Here query function is used to fetch records from user table this function works like we use sql query.
+         * SQL query equivalent to this query function is
+         * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com';
+         */
+        Cursor cursor = db.query("User", //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                      //filter by row groups
+                null);                      //The sort order
+        int cursorCount = cursor.getCount();
+        cursor.close();
+        db.close();
+
+        return cursorCount > 0;
+    }
+    public void changePassword(String password){
+        SQLiteDatabase db = mDBHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("password", password);
+        String where = "password" + "= ?";
+        String[] args = {password};
+        db.update(TABLE_NAME,values,where,args);
+        db.close();
+    }
+
 
 
 }
