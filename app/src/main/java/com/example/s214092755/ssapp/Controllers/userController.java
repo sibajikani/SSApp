@@ -51,18 +51,8 @@ public class userController {
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
-    //Uses addUser and sends email with recKey to user when registering
-    public boolean registerUser(User user){
-        //check if user is already registered
-        if(checkUserExists(user))
-            return false;
-        else {
-            addUser(user);
-            return true;
-        }
 
-    }
-    public boolean checkUserExists(User user){
+    public boolean checkUserExists(String email){
         // array of columns to fetch
         String[] columns = {
                 "userID"
@@ -73,7 +63,7 @@ public class userController {
         String selection = "email" + " = ?";
 
         // selection argument
-        String[] selectionArgs = {user.getEmail()};
+        String[] selectionArgs = {email};
 
         // query user table with condition
         /**

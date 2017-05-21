@@ -1,15 +1,22 @@
 package com.example.s214092755.ssapp.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.OrientationHelper;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.s214092755.ssapp.Controllers.userController;
@@ -27,8 +34,6 @@ public class register_fragment extends Fragment
     private SQLiteDatabase sdb;
     private userController userController;
 
-
-
     EditText edtName;
 
     EditText edtSurname;
@@ -36,6 +41,7 @@ public class register_fragment extends Fragment
     EditText edtContact;
     EditText edtAddress;
     Button Register;
+    Button Cancel;
 
     public register_fragment()
     {
@@ -57,20 +63,14 @@ public class register_fragment extends Fragment
         //extract Name, Surname, Email, Contact Number, Physical Address views
 
         edtName = (EditText)view.findViewById(R.id.edtRName);
-      edtSurname = (EditText)view.findViewById(R.id.edtRSurname);
+        edtSurname = (EditText)view.findViewById(R.id.edtRSurname);
          edtEmail = (EditText)view.findViewById(R.id.edtREmail);
          edtContact = (EditText)view.findViewById(R.id.edtRContact);
          edtAddress = (EditText)view.findViewById(R.id.edtRAddress);
 
-       /* //extract string values from extracted views
-        final String Name = edtName.getText().toString();
-        final String Surname = edtSurname.getText().toString();
-        final String Email = edtEmail.getText().toString();
-        final String ContactNum = edtContact.getText().toString();
-        final String Address = edtAddress.getText().toString();*/
 
         //extract functionality views i.e Cancel or Register buttons
-        Button Cancel = (Button)view.findViewById(R.id.btnrCancel);
+        Cancel = (Button)view.findViewById(R.id.btnrCancel);
 
         Register = (Button)view.findViewById(R.id.btnrConfirm);
 
@@ -83,31 +83,15 @@ public class register_fragment extends Fragment
 
         userController = new userController(dbh,getContext());
 
-        //create onclick listeners for Cancel and Register buttons
-        Cancel.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
 
-                //Registration Cancelled, so reload login fragment
-
-            }
-
-        });
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //extract string values from extracted views
-
-
-
         Register.setOnClickListener(new View.OnClickListener()
         {
-
             @Override
             public void onClick(View v) {
                 final String Name = edtName.getText().toString();
@@ -119,9 +103,9 @@ public class register_fragment extends Fragment
                 //Check if all fields are not empty
                 if (Name.length() > 0 && Surname.length() > 0 && Email.length() > 0 && ContactNum.length() > 0 && Address.length() > 0)
                 {
-                    User user = new User("",Name,Surname,Email,ContactNum,Address,"",generateKey());
+                    final User user = new User("",Name,Surname,Email,ContactNum,Address,"",generateKey());
                     //Fields are non-empty so check if the user has already registered
-                    if (userController.checkUserExists(user))
+                    if (userController.checkUserExists(user.getEmail()))
                     {
                         //display that the user has already registered at some previous stage
                         Toast.makeText(register_fragment.this.getContext(),"The account provided already exists, press Cancel to return to the Login page and choose to Login",Toast.LENGTH_SHORT).show();
@@ -130,10 +114,46 @@ public class register_fragment extends Fragment
                     else
                     {
                         //Add the registration details to the database
-                        Toast.makeText(register_fragment.this.getContext(),"You can do this",Toast.LENGTH_SHORT).show();
-                        userController.addUser(user);
+                        //Toast.makeText(register_fragment.this.getContext(),"You can do this",Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setTitle("Password Registration");
+                        builder.setMessage("");
+                        LinearLayout layout = new LinearLayout(getContext());
+                        layout.setOrientation(LinearLayout.VERTICAL);
+                        TextView textView = new TextView(getContext());
+                        textView.setText("Enter Password");
+                        final EditText editText = new EditText(getContext());
+                        editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        TextView textView2 = new TextView(getContext());
+                        textView2.setText("Enter Password");
+                        final EditText editText2 = new EditText(getContext());
+                        editText2.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        layout.addView(textView);
+                        layout.addView(editText);
+                        layout.addView(textView2);
+                        layout.addView(editText2);
+                        builder.setPositiveButton("Register", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(editText.getText().equals(editText2.getText())) {
+                                    user.setPassword(editText.getText().toString());
+                                    userController.addUser(user);
+                                }
+                                else
+                                    Toast.makeText(getContext(),"Passwords dont match",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                        //Go to password fragment with user details
+                            }
+                        });
+                        builder.setView(layout);
+                        builder.show();
+
+
+
 
                     }
 
@@ -144,6 +164,18 @@ public class register_fragment extends Fragment
                     //display that some fields are empty
                     Toast.makeText(getContext(), "Not all fields have been completed, ensure that all the fields are completed", Toast.LENGTH_SHORT).show();
                 }
+            }
+
+        });
+        //create onclick listeners for Cancel and Register buttons
+        Cancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                //Registration Cancelled, so reload login fragment
+
             }
 
         });

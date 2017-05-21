@@ -5,6 +5,7 @@ import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -44,14 +45,20 @@ public class ImageAdapter extends BaseAdapter {
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         View grid;
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
+
             grid = inflater.inflate(R.layout.grid_item, null);
+
             TextView textView = (TextView) grid.findViewById(R.id.gridText);
             ImageView imageView = (ImageView)grid.findViewById(R.id.gridImage);
+
             textView.setText(web[position]);
+
+
             imageView.setImageResource(Imageid[position]);
+            grid.setLayoutParams(new GridView.LayoutParams(250, 250));
+            //grid.setPadding(5, 5, 5, 5);
         } else {
             grid = convertView;
         }

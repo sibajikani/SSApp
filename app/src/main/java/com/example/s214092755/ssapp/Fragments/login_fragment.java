@@ -2,12 +2,13 @@ package com.example.s214092755.ssapp.Fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentTransaction;
 import android.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -18,12 +19,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.s214092755.ssapp.Controllers.userController;
+import com.example.s214092755.ssapp.DatabaseHelper;
 import com.example.s214092755.ssapp.R;
 
 
 public class login_fragment extends Fragment
     {
+        private DatabaseHelper dbh;
+        private SQLiteDatabase sdb;
+        private userController userController;
 
+        Button Login;
+        EditText edtUserName;
+        EditText edtPassWord;
 
         public login_fragment()
         {
@@ -56,13 +65,16 @@ public class login_fragment extends Fragment
             //extract views for Forgot Password, Not Registered and Login
             TextView ForgotPassword = (TextView)view.findViewById(R.id.txtForgotPassword);
             TextView NotRegistered = (TextView)view.findViewById(R.id.txtNotRegistered);
-            Button Login = (Button)view.findViewById(R.id.btnLogin);
+            Login = (Button)view.findViewById(R.id.btnLogin);
 
             //Extract username and password views
-            EditText edtUserName = (EditText)view.findViewById(R.id.edtUserName);
-            EditText edtPassWord = (EditText)view.findViewById(R.id.edtPassword);
-            final String UserName = edtUserName.getText().toString();
-            final String Password = edtPassWord.getText().toString();
+
+            edtUserName = (EditText)view.findViewById(R.id.edtUserName);
+
+            edtPassWord = (EditText)view.findViewById(R.id.edtPassword);
+
+
+            final android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
 
             //create onclick listeners for extracted views
             ForgotPassword.setOnClickListener(new View.OnClickListener()
@@ -71,6 +83,9 @@ public class login_fragment extends Fragment
                 public void onClick(View v)
                 {
                     //Change over to the ForgotPassword fragment
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frag_container,new forgotpassword_fragment()).commit();
+
                 }
             });
 
@@ -80,74 +95,58 @@ public class login_fragment extends Fragment
                 public void onClick(View v)
                 {
                     //Change over to the Not Registered fragment
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frag_container,new register_fragment()).commit();
                 }
             });
-
-            Login.setOnClickListener(new View.OnClickListener()
-            {
-                @RequiresApi(api = Build.VERSION_CODES.M)
-                @Override
-                public void onClick(View v)
-                {
-
-                    //Check if user exists
-                    if (UserFound(UserName))
-                    {
-                        //Found, so check if the user has provided the correct password
-                        if (CorrectCredentials(UserName,Password))
-                        {
-                            //User has provided correct username, password combination
-                            //Log the user in and transfer to the order fragment
-                            //android.app.FragmentManager manager = getFragmentManager();
-                            //FragmentTransaction transaction = manager.beginTransaction();
-                            //transaction.commit();
-                            Bundle bundle = new Bundle();
-
-                            //manager.putFragment(bundle,"login",new login_fragment());
-
-
-                            /*//Building a pop dialog
-                            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                            builder.setTitle("Error");
-                            builder.setMessage("whatever");
-                            builder.setPositiveButton("Register", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    //go to register
-                                }
-                            });
-                            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    builder.setCancelable(true);
-                                }
-                            });
-                            builder.show();*/
-
-
-                        }
-
-                        //display that an incorrect username, password combination was provided
-                        else
-                        {
-                            Toast.makeText(login_fragment.this.getContext(),"The username, password combination provided is incorrect, check the username and password",Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-
-
-                    //display that the username provided was not found
-                    //Should have a dialog which gives you the option to either go back or register
-                    //The toast could say go back and check username or click on the "Not registered" link
-                    else
-                    {
-                        Toast.makeText(login_fragment.this.getContext(),"The user does not exist, check the username provided",Toast.LENGTH_SHORT);
-                    }
-                }
-            });
-
 
             return view;
+        }
+
+        @Override
+        public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+            Login.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v) {
+                    String UserName = edtUserName.getText().toString();
+                    String Password = edtPassWord.getText().toString();
+                    //Check if user exists
+                    if (UserName.length() > 0 && Password.length() > 0) {
+                            boolean smart = userController.checkUserExists(UserName);
+                        if (smart) {
+                            //Found, so check if the user has provided the correct password
+                            if (userController.checkLogin(UserName, Password) != null) {
+                                //User has provided correct username, password combination
+                                //Log the user in and transfer to the order fragment
+                                Toast.makeText(login_fragment.this.getContext(), "The username, password combination provided, check the username and password", Toast.LENGTH_LONG).show();
+                                android.support.v4.app.FragmentManager manager = getFragmentManager();
+                                FragmentTransaction transaction = manager.beginTransaction().replace(R.id.frag_container, new product_fragment());
+                                transaction.commit();
+
+                            }
+                            //display that an incorrect username, password combination was provided
+                            else {
+                                Toast.makeText(login_fragment.this.getContext(), "The username, password combination provided is incorrect, check the username and password", Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+                        //display that the username provided was not found
+                        //Should have a dialog which gives you the option to either go back or register
+                        //The toast could say go back and check username or click on the "Not registered" link
+                        else {
+                            Toast.makeText(login_fragment.this.getContext(), "The user does not exist, check the username provided", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else
+                        Toast.makeText(getContext(), "Not all fields have been completed, ensure that all the fields are completed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+
+
         }
 
         //checks if the username exists within the database

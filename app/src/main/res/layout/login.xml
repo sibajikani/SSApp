@@ -52,12 +52,12 @@
         android:id="@+id/txtForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FOrgot Password"
-        android:textStyle="bold|italic"
-        tools:text="Forgot Password"
-        android:layout_marginTop="42dp"
+        android:layout_alignStart="@+id/edtPassword"
         android:layout_below="@+id/edtPassword"
-        android:layout_alignStart="@+id/edtPassword" />
+        android:layout_marginTop="42dp"
+        android:text="Forgot Password"
+        android:textStyle="bold|italic"
+        tools:text="Forgot Password" />
 
     <TextView
         android:id="@+id/txtNotRegistered"
