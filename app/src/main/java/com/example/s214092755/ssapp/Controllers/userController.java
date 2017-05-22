@@ -93,7 +93,7 @@ public class userController {
                 "name",
                 "surname",
                 "contactNr",
-                "address",
+                "address"
         };
         SQLiteDatabase db = mDBHelper.getReadableDatabase();
         // selection criteria
@@ -113,13 +113,14 @@ public class userController {
 
         int cursorCount = cursor.getCount();
         if (cursorCount > 0) {
-            String id = cursor.getString(cursor.getColumnIndex("userID"));
+            cursor.moveToFirst();
+            int id = cursor.getInt(cursor.getColumnIndex("userID"));
             String name = cursor.getString(cursor.getColumnIndex("name"));
             String email1 = cursor.getString(cursor.getColumnIndex("email"));
             String surname = cursor.getString(cursor.getColumnIndex("surname"));
             String contactNr = cursor.getString(cursor.getColumnIndex("contactNr"));
             String address = cursor.getString(cursor.getColumnIndex("address"));
-            return new User(id,name,surname,email1,contactNr,address,"","");
+            return new User(Integer.toString(id),name,surname,email1,contactNr,address,"","");
         }
 
         cursor.close();

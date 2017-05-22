@@ -4,15 +4,19 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.s214092755.ssapp.Controllers.ImageAdapter;
 import com.example.s214092755.ssapp.DatabaseHelper;
 import com.example.s214092755.ssapp.Models.Duo;
+import com.example.s214092755.ssapp.Models.Product;
 import com.example.s214092755.ssapp.Models.Transaction;
 import com.example.s214092755.ssapp.R;
 
@@ -36,7 +40,7 @@ public class supps_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_supps_fragment, container, false);
-        GridView gridView = (GridView)view.findViewById(R.id.gridview);
+        final GridView gridView = (GridView)view.findViewById(R.id.gridview);
 
         int[] mThumbIds = {
             R.drawable.images, R.drawable.n_tech_1kg_american_870x1110,
@@ -68,6 +72,12 @@ public class supps_fragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //go to product page with information about product
+                Toast.makeText(getContext(),"Supp "+ position+ " clicked",Toast.LENGTH_SHORT).show();
+                /*Bundle bundle = new Bundle();
+                bundle.putSerializable();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                fragmentManager.putFragment(bundle,"yes",new product_fragment());*/
             }
         });
 

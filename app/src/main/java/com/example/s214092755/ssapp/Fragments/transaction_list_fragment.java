@@ -25,7 +25,6 @@ public class transaction_list_fragment extends Fragment {
 
 transactionController transactionController;
     private DatabaseHelper dbh;
-    private SQLiteDatabase sdb;
     public transaction_list_fragment() {
         // Required empty public constructor
     }
@@ -38,6 +37,11 @@ transactionController transactionController;
         View view = inflater.inflate(R.layout.fragment_transaction_list_fragment, container, false);
 
         //Get transaction list populated from previous fragment
+        Bundle bundle = getArguments();
+        Transaction transaction = null;
+        if(bundle!=null){
+            transaction = (Transaction) bundle.getSerializable("transaction");
+        }
 
         transactionAdapter transactionAdapter = new transactionAdapter(getContext(),new Transaction[4]);
 
@@ -52,7 +56,7 @@ transactionController transactionController;
             throw new Error("UnableToUpdateDatabase");
         }
         transactionController = new transactionController(dbh,getContext());
-        transactionController.addTransaction();
+        transactionController.addTransaction(transaction);
 
         Toast.makeText(getContext(),"Added",Toast.LENGTH_LONG).show();
 

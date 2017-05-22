@@ -31,7 +31,6 @@ import java.io.IOException;
 public class login_fragment extends Fragment
     {
         private DatabaseHelper dbh;
-        private SQLiteDatabase sdb;
         private userController userController;
 
         Button Login;
@@ -153,34 +152,7 @@ public class login_fragment extends Fragment
                         Toast.makeText(getContext(), "Not all fields have been completed, ensure that all the fields are completed", Toast.LENGTH_SHORT).show();
                 }
             });
-
-
-
-
         }
-
-        //checks if the username exists within the database
-        public boolean UserFound(String UserName)
-        {
-            boolean found = false;
-
-            //Run through database, checking if user exists
-
-
-            return found;
-        }
-
-        //checks if the username and password combination provided is correct
-        public boolean CorrectCredentials(String UserName, String Password)
-        {
-            boolean found = false;
-
-            //Run through database, checking if the username, password combination is correct
-
-
-            return found;
-        }
-
 
         @Override
         public void onAttach(Context context) {

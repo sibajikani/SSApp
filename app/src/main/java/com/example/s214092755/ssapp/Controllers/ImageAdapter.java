@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.s214092755.ssapp.Models.Duo;
@@ -48,14 +49,20 @@ public class ImageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View grid;
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (convertView == null) {
+        //if (convertView == null) {
 
-            grid = inflater.inflate(R.layout.grid_item, null);
+            //grid = inflater.inflate(R.layout.grid_item, null);
 
-            TextView textView = (TextView) grid.findViewById(R.id.gridText);
-            ImageView imageView = (ImageView)grid.findViewById(R.id.gridImage);
+            LinearLayout linearLayout = new LinearLayout(mContext);
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+            //TextView textView = (TextView) grid.findViewById(R.id.gridText);
+            //ImageView imageView = (ImageView)grid.findViewById(R.id.gridImage);
+            TextView textView = new TextView(mContext);
+            ImageView imageView = new ImageView(mContext);
 
             textView.setText(data.get(position).getName());
+            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
             textView.setMaxHeight(50);
             textView.setMaxWidth(50);
@@ -66,13 +73,17 @@ public class ImageAdapter extends BaseAdapter {
             imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
             imageView.setImageResource(data.get(position).getRes());
-            grid.setLayoutParams(new GridView.LayoutParams(200, 200));
-            //grid.setPadding(5, 5, 5, 5);
-        } else {
-            grid = convertView;
-        }
+            //grid.setLayoutParams(new GridView.LayoutParams(400, 400));
+            imageView.setLayoutParams(new GridView.LayoutParams(270, 270));
 
-        return grid;
+            linearLayout.addView(imageView);
+            linearLayout.addView(textView);
+            //grid.setPadding(5, 5, 5, 5);
+        //} else {
+            //grid = convertView;
+        //}
+
+        return linearLayout;
     }
 
 }

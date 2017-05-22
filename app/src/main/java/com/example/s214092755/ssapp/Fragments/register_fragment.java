@@ -135,7 +135,7 @@ public class register_fragment extends Fragment
                         builder.setPositiveButton("Register", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if(editText.getText().equals(editText2.getText())) {
+                                if(editText.getText().toString().compareTo(editText2.getText().toString())==0) {
                                     user.setPassword(editText.getText().toString());
                                     userController.addUser(user);
                                 }

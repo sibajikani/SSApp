@@ -21,7 +21,7 @@ import java.util.List;
 public class transactionController {
     private DatabaseHelper mDBHelper;
     private Context context;
-    private final String TABLE_NAME = "Transaction";
+    private final String TABLE_NAME = "OrderTransaction";
     ArrayList<Transaction> transactions;
 
     public transactionController(DatabaseHelper mDBHelper, Context context) {
@@ -30,25 +30,18 @@ public class transactionController {
         transactions = new ArrayList<>();
     }
 
-    public void addTransaction() {
+    public void addTransaction(Transaction transaction) {
         SQLiteDatabase db = mDBHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        /*values.put("processed", transaction.getProcessed());
+        values.put("processed", transaction.getProcessed());
         values.put("quantity", transaction.getQuantity());
         values.put("pID",transaction.getpID());
-        //values.put("date", Calendar.DATE);
-        values.put("date",getDate());
-        values.put("userID", transaction.getUserID());*/
-        values.put("processed", 0);
-        values.put("quantity", 20);
-        values.put("pID",9);
-        //values.put("date", Calendar.DATE);
-        values.put("date",getDate());
-        values.put("userID", 1);
+        values.put("dates",getDate());
+        values.put("userID", transaction.getUserID());
 
         // Inserting Row
-        db.insert(TABLE_NAME, null, values);
+        db.insertOrThrow(TABLE_NAME, null, values);
         db.close();
     }
     private String getDate(){
@@ -56,6 +49,12 @@ public class transactionController {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(c.getTime());
     }
+    public void getTransactions(){
+        SQLiteDatabase db = mDBHelper.getReadableDatabase();
+
+    }
+
+
 
     public Product getProduct(List<Product> products, String ID){
         for (Product product:products)
