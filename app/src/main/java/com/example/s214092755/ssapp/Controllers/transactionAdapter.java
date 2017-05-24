@@ -4,7 +4,10 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.util.Pair;
+import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.s214092755.ssapp.Fragments.cart_list_fragment;
 import com.example.s214092755.ssapp.MainActivity;
 import com.example.s214092755.ssapp.Models.Merchandise;
 import com.example.s214092755.ssapp.Models.Product;
@@ -20,7 +24,10 @@ import com.example.s214092755.ssapp.Models.Supplement;
 import com.example.s214092755.ssapp.Models.Transaction;
 import com.example.s214092755.ssapp.R;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by s214092755 on 2017/05/18.
@@ -30,6 +37,8 @@ public class transactionAdapter extends ArrayAdapter<Pair<Product,Transaction>> 
     private ArrayList<Pair<Product,Transaction>> pairs;
     private String type;
     private MainActivity activity;
+    Fragment fragment;
+    private Callback callback;
 
     public transactionAdapter(@NonNull Context context, @NonNull ArrayList<Pair<Product,Transaction>> pairs, String type, MainActivity activity) {
         super(context, 0, pairs);
@@ -45,6 +54,8 @@ public class transactionAdapter extends ArrayAdapter<Pair<Product,Transaction>> 
         assert curPair != null;
         Transaction transaction = (Transaction) curPair.second;
         Product product = (Product)curPair.first;
+
+
 
         if (convertView == null) {
             if(type.equals("cart"))
@@ -89,12 +100,20 @@ public class transactionAdapter extends ArrayAdapter<Pair<Product,Transaction>> 
             convertView.findViewById(R.id.imageButton).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    double price = pairs.get(position).first.getUnitPrice()*pairs.get(position).second.getQuantity();
+                    //activity.updateTotalPrice();
+                    callback.refreshView(-price);
                     pairs.remove(position);
                     notifyDataSetChanged();
                     activity.getCurrrent_Order().remove(position);
+
                 }
             });
         }
         return convertView;
     }
+    public void setListener(Callback callback){
+        this.callback=callback;
+    }
+
 }

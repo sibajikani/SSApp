@@ -58,7 +58,10 @@ public class merch_fragment extends Fragment
         //set merchandise list in main activity
         productController.setMerchList((MainActivity)getActivity());
 
-        for (Map.Entry<Integer,ArrayList<Merchandise>> entry : mappedMerch.entrySet())
+        //get sorted merch list
+        ArrayList<Map.Entry<Integer,ArrayList<Merchandise>>> sortedMerch = productController.getMerchlist();
+
+        for (Map.Entry<Integer,ArrayList<Merchandise>> entry : sortedMerch)
         {
             merchandise.add(entry.getValue().get(0));
         }

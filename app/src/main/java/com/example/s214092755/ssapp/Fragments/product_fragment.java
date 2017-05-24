@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import com.example.s214092755.ssapp.Controllers.ProductController;
 import com.example.s214092755.ssapp.DatabaseHelper;
 import com.example.s214092755.ssapp.MainActivity;
 import com.example.s214092755.ssapp.Models.Merchandise;
+import com.example.s214092755.ssapp.Models.Product;
 import com.example.s214092755.ssapp.Models.Supplement;
 import com.example.s214092755.ssapp.Models.Transaction;
 import com.example.s214092755.ssapp.Models.User;
@@ -85,6 +87,8 @@ public class product_fragment extends Fragment
         final Supplement curSup;
         final Merchandise curMerch;
 
+        final Spinner spinFlavCol = (Spinner)view.findViewById(R.id.spinFlavourColour);
+
         Bundle bundle = getArguments();
 
         if(bundle!=null){
@@ -122,7 +126,6 @@ public class product_fragment extends Fragment
                 //create adapter for spinner
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, flavours);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                Spinner spinFlavCol = (Spinner)view.findViewById(R.id.spinFlavourColour);
                 //set adapter for spinner
                 spinFlavCol.setAdapter(adapter);
                 //set FlavourColour view to display "Flavour"
@@ -149,6 +152,8 @@ public class product_fragment extends Fragment
                         transaction.replace(R.id.frag_container,fragment).commit();
                     }
                 });
+
+
 
             }
             else {
@@ -180,7 +185,6 @@ public class product_fragment extends Fragment
                 //create adapter for spinner
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, colours);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                Spinner spinFlavCol = (Spinner)view.findViewById(R.id.spinFlavourColour);
                 //set adapter for spinner
                 spinFlavCol.setAdapter(adapter);
                 //set FlavourColour view to display "Colour"
@@ -237,14 +241,14 @@ public class product_fragment extends Fragment
             }
         });
 
+
+
         //Add to cart button
         AddToCart.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-
-
                 //create bundle for values and switch to current_order_frag
                 //record product name, unit price, quantity, total cost
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -264,7 +268,7 @@ public class product_fragment extends Fragment
                     //Supplement
                     if (Prod_bundle.get("curSup") != null) {
 
-                        Supplement newSup = (Supplement) Prod_bundle.get("curSup");
+                      Supplement  newSup = (Supplement) Prod_bundle.get("curSup");
                         //create new transaction to record the quantity selected
                         assert newSup != null;
                         Transaction transaction = new Transaction(newSup.getID(), curUser.getID(), Integer.parseInt(Quantity.getText().toString()), 0, "supp", getDate());
@@ -345,6 +349,31 @@ public class product_fragment extends Fragment
             }
         });
 
+        spinFlavCol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                //flavour selected
+                String flavSelected = spinFlavCol.getSelectedItem().toString();
+
+                //display stock on hand for selected flavour
+                Supplement curSupp = (Supplement)Prod_bundle.get("curSup");
+                String pID = curSupp.getID();
+
+                for (Supplement s : ((MainActivity)getActivity()).getSupplements())
+                {
+                    if (s.getID().equals(pID) && s.getFlavour().equals(flavSelected))
+                    {
+                        StockOnHand.setText(String.valueOf(s.getOnHandSup()));
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         return view;
     }
     private String getDate(){

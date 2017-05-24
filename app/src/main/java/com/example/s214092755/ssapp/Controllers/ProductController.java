@@ -1,5 +1,6 @@
 package com.example.s214092755.ssapp.Controllers;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,7 +13,11 @@ import com.example.s214092755.ssapp.Models.Supplement;
 
 import org.w3c.dom.DOMErrorHandler;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,13 +33,29 @@ public class ProductController {
     private Map<Integer,ArrayList<Merchandise>> Merchandise;
     private Map<Integer,ArrayList<Supplement>> Supplements;
 
+    //list of sorted supplements
+    ArrayList<Map.Entry<Integer,ArrayList<Supplement>>> suplist = new ArrayList<Map.Entry<Integer,ArrayList<Supplement>>>();
+
+    //list of sorted merchandise
+    ArrayList<Map.Entry<Integer,ArrayList<Merchandise>>> merchlist = new ArrayList<Map.Entry<Integer,ArrayList<Merchandise>>>();
+
     public ProductController(DatabaseHelper mDBHelper, Context context) {
         this.mDBHelper = mDBHelper;
         this.context = context;
         Merchandise = new HashMap<>();
         Supplements = new HashMap<>();
     }
+    public void changeQuantity(int onHand,String productID)
+    {
+        SQLiteDatabase db = mDBHelper.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put("onHand", onHand);
+        String where = "productID" + " = ?";
+        String[] args = {productID};
+        db.update(TABLE_NAME,values,where,args);
+        db.close();
+    }
     public Map<Integer,ArrayList<Supplement>> getAllSupplements()
     {
 
@@ -306,9 +327,32 @@ public class ProductController {
             Supps.addAll(entry.getValue());
         }
 
-         main.setSupplements(Supps);
+
+        main.setSupplements(Supps);
+
+         //Sort mapped Supplements
+        suplist = new ArrayList<Map.Entry<Integer,ArrayList<Supplement>>>(Supplements.entrySet());
+        Collections.sort(suplist, new Comparator<Map.Entry<Integer, ArrayList<Supplement>>>()
+        {
+            @Override
+            public int compare(Map.Entry<Integer, ArrayList<Supplement>> o1, Map.Entry<Integer, ArrayList<Supplement>> o2) {
+                return o1.getValue().get(0).getName().compareTo(o2.getValue().get(0).getName());
+            }
+        });
+
+        Supplements.clear();
+
+        for (Map.Entry<Integer, ArrayList<Supplement>> entry : suplist)
+        {
+           Supplements.put(entry.getKey(),entry.getValue());
+        }
 
     }
+
+    public ArrayList<Map.Entry<Integer,ArrayList<Supplement>>> getSuplist() {return suplist;}
+    public ArrayList<Map.Entry<Integer,ArrayList<Merchandise>>> getMerchlist() {return merchlist;}
+
+
     public void setMerchList(MainActivity main)
     {
         ArrayList<Merchandise> Merch = new ArrayList<>();
@@ -317,8 +361,80 @@ public class ProductController {
             Merch.addAll(entry.getValue());
         }
 
+
         main.setMerchandise(Merch);
+
+        //Sort mapped Merchandise
+        merchlist = new ArrayList<Map.Entry<Integer,ArrayList<Merchandise>>>(Merchandise.entrySet());
+        Collections.sort(merchlist, new Comparator<Map.Entry<Integer, ArrayList<Merchandise>>>()
+        {
+            @Override
+            public int compare(Map.Entry<Integer, ArrayList<Merchandise>> o1, Map.Entry<Integer, ArrayList<Merchandise>> o2)
+            {
+                return o1.getValue().get(0).getName().compareTo(o2.getValue().get(0).getName());
+            }
+        });
+
+        Merchandise.clear();
+
+        for (Map.Entry<Integer, ArrayList<Merchandise>> entry : merchlist)
+        {
+            Merchandise.put(entry.getKey(),entry.getValue());
+        }
     }
+
+    private void SortSupps(ArrayList<Supplement> Supplements )
+    {
+        for (int x = 0 ; x< Supplements.size() - 2; x++)
+        {
+            for (int y = x+1; y< Supplements.size() - 1 ; y++)
+            {
+
+                Supplement first = Supplements.get(x);
+                Supplement second = Supplements.get(y);
+
+                if (first.getName().compareTo(second.getName()) > 0)
+                {
+                    //Swop
+                    Supplement temp = first;
+                    first = second;
+                    second = temp;
+
+                }
+                Supplements.set(x,first);
+                Supplements.set(y,second);
+
+            }
+        }
+
+    }
+
+    private void SortMerch(ArrayList<Merchandise> Merchandise )
+    {
+        for (int x = 0 ; x< Merchandise.size() - 2; x++)
+        {
+            for (int y = x+1; y< Merchandise.size() - 1 ; y++)
+            {
+
+                Merchandise first = Merchandise.get(x);
+                Merchandise second = Merchandise.get(y);
+
+                if (first.getName().compareTo(second.getName()) > 0)
+                {
+                    //Swop
+                    Merchandise temp = first;
+                    first = second;
+                    second = temp;
+
+                }
+                Merchandise.set(x,first);
+                Merchandise.set(y,second);
+
+            }
+        }
+
+    }
+
 
 
 }

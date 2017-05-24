@@ -143,9 +143,8 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/a789895_zoom"
         android:layout_alignBottom="@+id/textView19"
-        android:layout_alignStart="@+id/textView13"
-        android:layout_marginStart="13dp"
-        android:layout_below="@+id/txtProdName" />
+        android:layout_toEndOf="@+id/textView13"
+        android:layout_below="@+id/textView14" />
 
     <ImageView
         android:id="@+id/imgSubtract"
@@ -168,6 +167,7 @@
         android:layout_marginTop="14dp"
         android:layout_toEndOf="@+id/imgSubtract"
         android:text="0   "
+        android:textSize="15sp"
         tools:text="quantity   " />
 
     <ImageView

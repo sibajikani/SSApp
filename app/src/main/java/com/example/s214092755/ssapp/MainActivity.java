@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.s214092755.ssapp.Fragments.BuyList;
 import com.example.s214092755.ssapp.Fragments.cart_list_fragment;
 import com.example.s214092755.ssapp.Fragments.empty_fragment;
 import com.example.s214092755.ssapp.Fragments.login_fragment;
@@ -39,6 +38,9 @@ public class MainActivity extends AppCompatActivity
     //List of merchandise
     private ArrayList<Merchandise> Merchandise;
 
+    //Total price of current order
+    double totalPrice = 0.0;
+
     //current user
     private User curUser;
 
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity
 
         Fragment fragment = null;
         Class fragmentClass;
+
 
         fragmentClass = MainSplash.class;
 
@@ -106,6 +109,14 @@ public class MainActivity extends AppCompatActivity
 
     public User getCurUser() {return curUser;}
 
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void updateTotalPrice(double totalPrice) {
+        this.totalPrice += totalPrice;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -113,20 +124,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

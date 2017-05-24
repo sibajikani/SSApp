@@ -65,7 +65,10 @@ public class supps_fragment extends Fragment {
         //set supplement list in main activity
         productController.setSupList((MainActivity)getActivity());
 
-        for (Map.Entry<Integer,ArrayList<Supplement>> entry : mappedSupps.entrySet())
+        //get sorted supp list
+        ArrayList<Map.Entry<Integer,ArrayList<Supplement>>> sortedSupps = productController.getSuplist();
+
+        for (Map.Entry<Integer,ArrayList<Supplement>> entry : sortedSupps)
         {
             supplements.add(entry.getValue().get(0));
         }

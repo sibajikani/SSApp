@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.s214092755.ssapp.Controllers.Callback;
 import com.example.s214092755.ssapp.Controllers.transactionAdapter;
 import com.example.s214092755.ssapp.MainActivity;
 import com.example.s214092755.ssapp.Models.Merchandise;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class cart_list_fragment extends Fragment
+public class cart_list_fragment extends Fragment implements Callback
 {
 
     //List of transactions for current order
@@ -36,6 +37,12 @@ public class cart_list_fragment extends Fragment
 
     //List of merchandise
     private ArrayList<Merchandise> Merchandise;
+
+    //Total price of current order
+    double totalPrice = 0.0;
+
+    TextView textView;
+
 
 
     public cart_list_fragment() {
@@ -48,6 +55,8 @@ public class cart_list_fragment extends Fragment
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cart_list_fragment, container, false);
+
+        textView = (TextView)view.findViewById(R.id.totalPrice);
 
 
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("Current Order List");
@@ -70,8 +79,11 @@ public class cart_list_fragment extends Fragment
 
         Product curProduct = null;
 
+
+
         //runs through transactions in current order and populate list view
-        for (Transaction t : Currrent_Order) {
+        for (Transaction t : Currrent_Order)
+        {
             //Check for supplement or merchandise
             if (t.getType().equals("supp")) {
                 for (Supplement supp : Supplements) {
@@ -88,10 +100,15 @@ public class cart_list_fragment extends Fragment
             }
             Pair<Product,Transaction> pair = new Pair<>(curProduct,t);
             pairs.add(pair);
-        }
 
+            assert curProduct != null;
+            totalPrice+= t.getQuantity()*curProduct.getUnitPrice();
+
+        }
+        textView.setText(String.valueOf(totalPrice));
         transactionAdapter transactionAdapter = new transactionAdapter(getContext(), pairs,"cart", (MainActivity) getActivity());
 
+        transactionAdapter.setListener(cart_list_fragment.this);
        listView.setAdapter(transactionAdapter);
 
        view.findViewById(R.id.buttonProcess).setOnClickListener(new View.OnClickListener() {
@@ -114,4 +131,9 @@ public class cart_list_fragment extends Fragment
 
     }
 
+    @Override
+    public void refreshView(double price) {
+        totalPrice+=price;
+        textView.setText(String.valueOf(totalPrice));
+    }
 }

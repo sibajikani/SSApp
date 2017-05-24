@@ -123,7 +123,7 @@ public class register_fragment extends Fragment
                     {
                         //Add the registration details to the database
                         //Toast.makeText(register_fragment.this.getContext(),"You can do this",Toast.LENGTH_SHORT).show();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                         builder.setTitle("Password Registration");
                         builder.setMessage("");
                         LinearLayout layout = new LinearLayout(getContext());
@@ -146,8 +146,18 @@ public class register_fragment extends Fragment
                                 if(editText.getText().toString().compareTo(editText2.getText().toString())==0) {
                                     user.setPassword(editText.getText().toString());
                                     userController.addUser(user);
-                                    sendEmail(key,Email);
-                                    Toast.makeText(getContext(),"Registered",Toast.LENGTH_SHORT).show();
+                                    //sendEmail(key,Email);
+                                    AlertDialog.Builder builder2 = new AlertDialog.Builder(getContext());
+                                    builder2.setTitle("Recovery Key");
+                                    builder2.setMessage("Your recovery key: "+key);
+                                    builder2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Toast.makeText(getContext(),"Registered",Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    });
+                                    builder2.create();
                                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
                                     transaction.replace(R.id.frag_container,new login_fragment()).commit();
                                 }
