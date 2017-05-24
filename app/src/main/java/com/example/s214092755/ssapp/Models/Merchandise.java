@@ -8,23 +8,25 @@ import java.io.Serializable;
 
 public class Merchandise extends Product implements Serializable{
     String type,size,colour;
-    int onHand;
+    int onHand1;
 
-    public Merchandise(String ID, String name, String type, String manu, String picLink, int onHand, double unitPrice, String type1, String size, String colour, int onHand1) {
-        super(ID, name, type, manu, picLink, onHand, unitPrice);
+    public Merchandise(String ID, String name, String manu, String picLink, double unitPrice,String colour, String type1, String size,  int onHand1) {
+        super(ID, name, "merchandise", manu, picLink, unitPrice);
         this.type = type1;
         this.size = size;
         this.colour = colour;
-        this.onHand = onHand1;
+        this.onHand1 = onHand1;
+    }
+    public String getType(){
+        return "merchandise";
     }
 
-    @Override
-    public String getType() {
+    public String getTypeMerch() {
         return type;
     }
 
-    @Override
-    public void setType(String type) {
+
+    public void setMerch(String type) {
         this.type = type;
     }
 
@@ -44,13 +46,11 @@ public class Merchandise extends Product implements Serializable{
         this.colour = colour;
     }
 
-    @Override
-    public int getOnHand() {
-        return onHand;
+    public int getOnHand1() {
+        return onHand1;
     }
 
-    @Override
-    public void setOnHand(int onHand) {
-        this.onHand = onHand;
+    public void setOnHand1(int onHand1) {
+        this.onHand1 = onHand1;
     }
 }

@@ -13,6 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="13dp"
         android:layout_marginTop="19dp"
+        android:text="Name"
         android:textStyle="bold"
         tools:text="Name" />
 
@@ -32,6 +33,7 @@
         android:layout_alignStart="@+id/txtProdName"
         android:layout_below="@+id/txtProdName"
         android:layout_marginTop="15dp"
+        android:text="Type"
         android:textStyle="bold"
         tools:text="Type" />
 
@@ -51,6 +53,7 @@
         android:layout_alignStart="@+id/txtType"
         android:layout_below="@+id/txtType"
         android:layout_marginTop="12dp"
+        android:text="Size"
         android:textStyle="bold"
         tools:text="Size" />
 
@@ -70,6 +73,7 @@
         android:layout_alignStart="@+id/txtSize"
         android:layout_below="@+id/txtSize"
         android:layout_marginTop="14dp"
+        android:text="Flavour"
         android:textStyle="bold"
         tools:text="Flavour" />
 
@@ -80,6 +84,7 @@
         android:layout_alignStart="@+id/txtFlavourColour"
         android:layout_below="@+id/spinFlavourColour"
         android:layout_marginTop="12dp"
+        android:text="Stock on hand"
         android:textStyle="bold"
         tools:text="Stock on hand" />
 
@@ -98,7 +103,8 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/txtStock"
         android:layout_below="@+id/txtStock"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="12dp"
+        android:text="Unit Price (R)"
         android:textStyle="bold"
         tools:text="Unit Price (R)" />
 
@@ -118,40 +124,40 @@
         android:layout_alignStart="@+id/txtUnitPrice"
         android:layout_below="@+id/txtUnitPrice"
         android:layout_marginTop="14dp"
+        android:text="Specify Quantity"
         android:textStyle="bold"
-        tools:text="Speify Quantity" />
+        tools:text="Specify Quantity" />
 
     <Spinner
         android:id="@+id/spinFlavourColour"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView19"
         android:layout_alignStart="@+id/textView19"
         android:layout_below="@+id/txtFlavourColour"
-        android:layout_marginTop="13dp" />
+        android:layout_marginTop="13dp"
+        android:layout_toStartOf="@+id/imageVProduct" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageVProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/spinFlavourColour"
-        android:layout_alignParentEnd="true"
+        app:srcCompat="@drawable/a789895_zoom"
+        android:layout_alignBottom="@+id/textView19"
         android:layout_alignStart="@+id/textView13"
-        android:layout_alignTop="@+id/txtSize"
-        android:layout_toEndOf="@+id/txtSize"
-        app:srcCompat="@drawable/a789895_zoom" />
+        android:layout_marginStart="13dp"
+        android:layout_below="@+id/txtProdName" />
 
     <ImageView
         android:id="@+id/imgSubtract"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageButton"
-        android:layout_alignEnd="@+id/textView23"
         android:layout_alignStart="@+id/textView23"
         android:layout_below="@+id/textView23"
         android:layout_marginTop="11dp"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/minus_sign" />
+        app:srcCompat="@drawable/minus_sign"
+        android:layout_above="@+id/btnpCancel"
+        android:layout_alignEnd="@+id/txtSize" />
 
     <TextView
         android:id="@+id/txtQuantity"
@@ -161,18 +167,18 @@
         android:layout_marginStart="11dp"
         android:layout_marginTop="14dp"
         android:layout_toEndOf="@+id/imgSubtract"
+        android:text="0   "
         tools:text="quantity   " />
 
     <ImageView
         android:id="@+id/imgAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageButton"
         android:layout_alignEnd="@+id/textView13"
-        android:layout_alignStart="@+id/textView13"
-        android:layout_below="@+id/textView26"
         android:layout_toEndOf="@+id/txtQuantity"
-        app:srcCompat="@drawable/plus_sign" />
+        app:srcCompat="@drawable/plus_sign"
+        android:layout_below="@+id/textView13"
+        android:layout_above="@+id/btnpAddToCart" />
 
     <Button
         android:id="@+id/btnpCancel"
@@ -183,34 +189,20 @@
         android:layout_toStartOf="@+id/txtQuantity"
         android:backgroundTint="@color/Cyan"
         android:text="Cancel"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:layout_alignEnd="@+id/textView19" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView26"
-        android:layout_alignParentBottom="true"
-        android:layout_alignTop="@+id/btnpCancel"
-        android:adjustViewBounds="true"
-        android:maxHeight="85dp"
-        android:maxWidth="85dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/shopping_cart" />
 
     <TextView
         android:id="@+id/textView26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Total Price(R)"
+        android:textStyle="bold"
+        tools:text="Total Price(R)"
         android:layout_alignBaseline="@+id/textView23"
         android:layout_alignBottom="@+id/textView23"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="17dp"
-        android:layout_toEndOf="@+id/textView13"
-        android:text="TextView"
-        android:textStyle="bold"
-        tools:text="Total Price (R)" />
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/txtTotalPrice"
@@ -218,8 +210,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/txtQuantity"
         android:layout_alignBottom="@+id/txtQuantity"
-        android:layout_alignEnd="@+id/textView26"
+        android:layout_alignEnd="@+id/btnpAddToCart"
         android:layout_marginEnd="12dp"
+        android:text="total price"
         tools:text="total price" />
 
     <TextView
@@ -236,11 +229,11 @@
         android:id="@+id/btnpAddToCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/imageButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/textView26"
+
         android:backgroundTint="@color/Cyan"
         android:text="Add To Cart"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

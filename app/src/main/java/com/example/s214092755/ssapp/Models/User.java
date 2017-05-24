@@ -7,7 +7,8 @@ package com.example.s214092755.ssapp.Models;
 public class User {
     private String ID,name, surname, email, contactNr, address, password, recKey;
 
-    public User(String ID, String name, String surname, String email, String contactNr, String address, String password, String recKey) {
+    public User(String ID, String name, String surname, String email, String contactNr, String address, String password, String recKey)
+    {
         this.ID = ID;
         this.name = name;
         this.surname = surname;

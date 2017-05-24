@@ -14,17 +14,38 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.s214092755.ssapp.Fragments.BuyList;
+import com.example.s214092755.ssapp.Fragments.cart_list_fragment;
+import com.example.s214092755.ssapp.Fragments.empty_fragment;
 import com.example.s214092755.ssapp.Fragments.login_fragment;
 import com.example.s214092755.ssapp.Fragments.register_fragment;
 import com.example.s214092755.ssapp.Fragments.transaction_list_fragment;
+import com.example.s214092755.ssapp.Models.Merchandise;
+import com.example.s214092755.ssapp.Models.Supplement;
+import com.example.s214092755.ssapp.Models.Transaction;
+import com.example.s214092755.ssapp.Models.User;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener
+{
+
+    //List of transactions for current order
+    private ArrayList<Transaction> Currrent_Order;
+
+    //List of supplements
+    private ArrayList<Supplement> Supplements;
+
+    //List of merchandise
+    private ArrayList<Merchandise> Merchandise;
+
+    //current user
+    private User curUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+       setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,6 +75,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        Currrent_Order = new ArrayList<>();
+        curUser = null;
+
     }
 
     @Override
@@ -67,6 +91,20 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+    public ArrayList<Transaction> getCurrrent_Order() { return Currrent_Order ;}
+    public ArrayList<Supplement> getSupplements() { return Supplements ;}
+    public ArrayList<Merchandise> getMerchandise() { return Merchandise ;}
+
+    public void setCurrrent_Order(ArrayList<Transaction> currrent_Order) {Currrent_Order = currrent_Order;}
+
+    public void setSupplements(ArrayList<Supplement> supplements) {Supplements = supplements;}
+
+    public void setMerchandise(ArrayList<Merchandise> merchandise) {Merchandise = merchandise;}
+
+    public void setCurUser(User user) { curUser = user ;}
+
+    public User getCurUser() {return curUser;}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -119,7 +157,12 @@ public class MainActivity extends AppCompatActivity
         //Current Order
         else if (id == R.id.nav_order) {
             //Switch to order fragment
-            fragmentClass = BuyList.class;
+            if(getCurrrent_Order()==null||getCurrrent_Order().size()==0) {
+                fragmentClass = empty_fragment.class;
+            }
+            else {
+                fragmentClass = cart_list_fragment.class;
+            }
         }
 
         //Transaction History
@@ -131,6 +174,7 @@ public class MainActivity extends AppCompatActivity
         try {
             assert fragmentClass != null;
             fragment = (Fragment) fragmentClass.newInstance();
+            //getSupportActionBar().setTitle(title);
         } catch (Exception e) {
             e.printStackTrace();
         }

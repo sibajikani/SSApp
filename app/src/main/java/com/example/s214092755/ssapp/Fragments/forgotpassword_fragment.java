@@ -102,24 +102,23 @@ public class forgotpassword_fragment extends Fragment
                 ConfNewPass = edtConfNewPass.getText().toString();
                 if(RecKey.length()>0&&NewPass.length()>0&&ConfNewPass.length()>0) {
                     //Check if RecKey exists
-                    if (userController.checkRecKey(RecKey)) {
+                    if (userController.checkRecKey(RecKey)!=null) {
                         if(NewPass.equals(ConfNewPass)) {
                             //Change the password in the database
-                            userController.changePassword(NewPass);
-
+                            userController.changePassword(NewPass,userController.checkRecKey(RecKey).getID());
                             //Replace current fragment with login fragment
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction transaction =fragmentManager.beginTransaction().replace(R.id.frag_container,new login_fragment());
                             transaction.commit();
                         }
                         else
-                            Toast.makeText(forgotpassword_fragment.this.getContext(), "Passwords dont match", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(forgotpassword_fragment.this.getContext(), "Passwords don't match", Toast.LENGTH_SHORT).show();
 
 
                     }
-
+                    else
                     //RecKey was not found, so display
-                    Toast.makeText(forgotpassword_fragment.this.getContext(), "Recovery key entered was not found, check recovery key and try again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(forgotpassword_fragment.this.getContext(), "Recovery key entered was not found, check recovery key and try again", Toast.LENGTH_SHORT).show();
                 }
                 else
                     Toast.makeText(forgotpassword_fragment.this.getContext(), "Not all fields have been completed, ensure that all the fields are completed", Toast.LENGTH_SHORT).show();

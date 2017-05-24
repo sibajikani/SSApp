@@ -9,14 +9,17 @@ import java.io.Serializable;
 public class Transaction implements Serializable{
     private String pID,userID;
     private String date;
+    private String type;
     private int quantity,processed;
 
-    public Transaction(String pID, String userID, int quantity, int processed)
+    public Transaction(String pID, String userID, int quantity, int processed, String type, String date)
     {
         this.pID = pID;
         this.userID = userID;
         this.quantity = quantity;
         this.processed = processed;
+        this.type = type;
+        this.date = date;
     }
 
     public String getUserID() {
@@ -26,6 +29,8 @@ public class Transaction implements Serializable{
     public String getpID() {
         return pID;
     }
+
+    public String getType() { return type ;}
 
     public void setpID(String pID) {
         this.pID = pID;

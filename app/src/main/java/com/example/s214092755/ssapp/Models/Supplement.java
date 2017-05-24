@@ -10,13 +10,17 @@ public class Supplement extends Product implements Serializable {
     String flavour, typeSup,size;
     int onHandSup;
 
-    public Supplement(String ID, String name, String type, String manu, String picLink, int onHand, double unitPrice, String flavour, String typeSup, String size, int onHandSup)
+    public Supplement(String ID, String name, String manu, String picLink, double unitPrice, String flavour, String typeSup, String size, int onHandSup)
     {
-        super(ID, name, type, manu, picLink, onHand, unitPrice);
+        super(ID, name, "supplement", manu, picLink,unitPrice);
         this.flavour = flavour;
         this.typeSup = typeSup;
         this.size = size;
         this.onHandSup = onHandSup;
+    }
+
+    public String getType(){
+        return "supplement";
     }
 
     public String getFlavour() {

@@ -2,14 +2,18 @@ package com.example.s214092755.ssapp.Fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.OrientationHelper;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.s214092755.ssapp.Controllers.userController;
 import com.example.s214092755.ssapp.DatabaseHelper;
+import com.example.s214092755.ssapp.MainActivity;
 import com.example.s214092755.ssapp.Models.User;
 import com.example.s214092755.ssapp.R;
 
@@ -59,6 +64,8 @@ public class register_fragment extends Fragment
     {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.registration, container, false);
+
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Registration");
 
         //extract Name, Surname, Email, Contact Number, Physical Address views
 
@@ -103,7 +110,8 @@ public class register_fragment extends Fragment
                 //Check if all fields are not empty
                 if (Name.length() > 0 && Surname.length() > 0 && Email.length() > 0 && ContactNum.length() > 0 && Address.length() > 0)
                 {
-                    final User user = new User("",Name,Surname,Email,ContactNum,Address,"",generateKey());
+                    final String key = generateKey();
+                    final User user = new User("",Name,Surname,Email,ContactNum,Address,"",key);
                     //Fields are non-empty so check if the user has already registered
                     if (userController.checkUserExists(user.getEmail()))
                     {
@@ -138,9 +146,13 @@ public class register_fragment extends Fragment
                                 if(editText.getText().toString().compareTo(editText2.getText().toString())==0) {
                                     user.setPassword(editText.getText().toString());
                                     userController.addUser(user);
+                                    sendEmail(key,Email);
+                                    Toast.makeText(getContext(),"Registered",Toast.LENGTH_SHORT).show();
+                                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                    transaction.replace(R.id.frag_container,new login_fragment()).commit();
                                 }
                                 else
-                                    Toast.makeText(getContext(),"Passwords dont match",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(),"Passwords don't match",Toast.LENGTH_LONG).show();
                             }
                         });
                         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -151,14 +163,8 @@ public class register_fragment extends Fragment
                         });
                         builder.setView(layout);
                         builder.show();
-
-
-
-
                     }
-
                 }
-
                 else
                 {
                     //display that some fields are empty
@@ -182,18 +188,6 @@ public class register_fragment extends Fragment
 
     }
 
-    //checks if the user is already registered on the system
-    public boolean AlreadyRegistered()
-    {
-
-        boolean registered = false;
-
-        //check if user exists on the system
-
-
-        return registered;
-
-    }
     private String generateKey(){
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();
@@ -202,8 +196,31 @@ public class register_fragment extends Fragment
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
             salt.append(SALTCHARS.charAt(index));
         }
-        String saltStr = salt.toString();
-        return saltStr;
+        return salt.toString();
+    }
+    private void sendEmail(String key,String email){
+        Log.i("Send email", "");
+        String[] TO = {email};
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        String body = "Thank you for registering on the app. We hope you will enjoy the products \n \n"
+                .concat("Recovery key: ").concat(key)
+                .concat("\n")
+                .concat("Regards \n")
+                .concat("The ShapeShifters Team");
+
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "ShapeShifters Recovery Key");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            Log.i("Finished sending email", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getContext(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

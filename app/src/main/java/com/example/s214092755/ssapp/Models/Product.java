@@ -6,16 +6,14 @@ package com.example.s214092755.ssapp.Models;
 
 public class Product {
     private String ID, name, type, manu,picLink;
-    private int onHand;
     private double unitPrice;
 
-    public Product(String ID, String name, String type, String manu, String picLink, int onHand, double unitPrice) {
+    public Product(String ID, String name, String type, String manu, String picLink, double unitPrice) {
         this.ID = ID;
         this.name = name;
         this.type = type;
         this.manu = manu;
         this.picLink = picLink;
-        this.onHand = onHand;
         this.unitPrice = unitPrice;
     }
 
@@ -23,7 +21,8 @@ public class Product {
         return ID;
     }
 
-    public void setID(String ID) {
+    public void setID(String ID)
+    {
         this.ID = ID;
     }
 
@@ -57,14 +56,6 @@ public class Product {
 
     public void setPicLink(String picLink) {
         this.picLink = picLink;
-    }
-
-    public int getOnHand() {
-        return onHand;
-    }
-
-    public void setOnHand(int onHand) {
-        this.onHand = onHand;
     }
 
     public double getUnitPrice() {

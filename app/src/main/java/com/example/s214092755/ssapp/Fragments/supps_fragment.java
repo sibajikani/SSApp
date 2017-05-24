@@ -1,7 +1,7 @@
 package com.example.s214092755.ssapp.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,19 +14,25 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.s214092755.ssapp.Controllers.ImageAdapter;
+import com.example.s214092755.ssapp.Controllers.ProductController;
 import com.example.s214092755.ssapp.DatabaseHelper;
+import com.example.s214092755.ssapp.MainActivity;
 import com.example.s214092755.ssapp.Models.Duo;
-import com.example.s214092755.ssapp.Models.Product;
-import com.example.s214092755.ssapp.Models.Transaction;
+import com.example.s214092755.ssapp.Models.Supplement;
 import com.example.s214092755.ssapp.R;
 
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
 
 
 public class supps_fragment extends Fragment {
 
+    private DatabaseHelper dbh;
+    private ProductController productController;
     public supps_fragment() {
         // Required empty public constructor
     }
@@ -42,49 +48,77 @@ public class supps_fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_supps_fragment, container, false);
         final GridView gridView = (GridView)view.findViewById(R.id.gridview);
 
-        int[] mThumbIds = {
-            R.drawable.images, R.drawable.n_tech_1kg_american_870x1110,
-            R.drawable.new_usn_nl_towel, R.drawable.tornado_shaker_front_b_1,
-            R.drawable.nutritech_anabolicmass5_2, R.drawable.nutritechfit_hunter_cap_product_page,
-            R.drawable.nutritechfit_lifting_gloves_product_page1_250x317, R.drawable.nutritechfit_nylon_lifting_belt_product_page1_250x317,
-            R.drawable.nutritechfit_pullover_250x317, R.drawable.usn_pure_protein1,
-            R.drawable.usn_b4_bomb, R.drawable.usn_100_premium_whey_protein,
-            R.drawable.nutritechfit_mens_summer_swolestice_singlet_pink,
-            R.drawable.nutritechfit_amino_pre_250x317, R.drawable.nutritech_shakepro400_2,
-            R.drawable.nutritechfit_2_2_litre_colossus_bottle_1_250x317,
-            R.drawable.nutribot_tee_front_1_11
-    };
+
+        dbh = new DatabaseHelper(getContext());
+        try {
+            dbh.updateDataBase();
+        } catch (IOException mIOException) {
+            throw new Error("UnableToUpdateDatabase");
+        }
+
+        productController = new ProductController(dbh,getContext());
+
+        final ArrayList<Supplement> supplements = new ArrayList<>();
+
+        final Map<Integer,ArrayList<Supplement>> mappedSupps = productController.getAllSupplements();
+
+        //set supplement list in main activity
+        productController.setSupList((MainActivity)getActivity());
+
+        for (Map.Entry<Integer,ArrayList<Supplement>> entry : mappedSupps.entrySet())
+        {
+            supplements.add(entry.getValue().get(0));
+        }
+
+        int[] mThumbIds = new int[supplements.size()];
+
+        for(int x= 0;x<mThumbIds.length;x++)
+        {
+            int drawableResourceId = this.getResources().getIdentifier(supplements.get(x).getPicLink(), "drawable", this.getContext().getPackageName());
+            mThumbIds[x] = drawableResourceId;
+        }
         //Get list of supplements and add to list
         String[] strings = new String[mThumbIds.length];
         for(int x = 0;x<strings.length;x++){
-            strings[x]= "Supp "+x;
+            strings[x]= supplements.get(x).getName();
         }
         ArrayList<Duo> duos = new ArrayList<>();
+
         //Get list of supplement text
         for(int x=0;x<mThumbIds.length;x++){
             duos.add(new Duo(strings[x],mThumbIds[x]));
         }
 
+
+
         ImageAdapter imageAdapter = new ImageAdapter(getContext(),duos);
         gridView.setAdapter(imageAdapter);
         gridView.setNumColumns(2);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
                 //go to product page with information about product
-                Toast.makeText(getContext(),"Supp "+ position+ " clicked",Toast.LENGTH_SHORT).show();
-                /*Bundle bundle = new Bundle();
-                bundle.putSerializable();
-                FragmentManager fragmentManager = getFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("curSup",supplements.get(position));
+                bundle.putString("type","supp");
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                Fragment fragment = new product_fragment();
+                fragment.setArguments(bundle);
+
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                fragmentManager.putFragment(bundle,"yes",new product_fragment());*/
+                View view1 = getActivity().findViewById(R.id.frag_container);
+                int idview = view1.getId();
+                transaction.replace(idview,fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                fragmentManager.executePendingTransactions();
             }
         });
 
-
         return view;
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_supps_fragment, container, false);
     }
 
 

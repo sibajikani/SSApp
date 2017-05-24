@@ -129,10 +129,15 @@ public class userController {
         return null;
     }
 
-    public boolean checkRecKey(String recKey){
+    public User checkRecKey(String recKey){
         // array of columns to fetch
         String[] columns = {
-                "userID"
+                "userID",
+                "email",
+                "name",
+                "surname",
+                "contactNr",
+                "address"
         };
         SQLiteDatabase db = mDBHelper.getReadableDatabase();
 
@@ -156,18 +161,30 @@ public class userController {
                 null,                      //filter by row groups
                 null);                      //The sort order
         int cursorCount = cursor.getCount();
+
+        User user = null;
+
+        if (cursorCount > 0) {
+            cursor.moveToFirst();
+            int id = cursor.getInt(cursor.getColumnIndex("userID"));
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            String email1 = cursor.getString(cursor.getColumnIndex("email"));
+            String surname = cursor.getString(cursor.getColumnIndex("surname"));
+            String contactNr = cursor.getString(cursor.getColumnIndex("contactNr"));
+            String address = cursor.getString(cursor.getColumnIndex("address"));
+            user = new User(Integer.toString(id),name,surname,email1,contactNr,address,"","");
+        }
         cursor.close();
         db.close();
-
-        return cursorCount > 0;
+        return user;
     }
-    public void changePassword(String password){
+    public void changePassword(String password,String userID){
         SQLiteDatabase db = mDBHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put("password", password);
-        String where = "password" + "= ?";
-        String[] args = {password};
+        String where = "userID" + " = ?";
+        String[] args = {userID};
         db.update(TABLE_NAME,values,where,args);
         db.close();
     }

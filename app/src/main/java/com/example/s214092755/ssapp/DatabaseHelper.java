@@ -258,7 +258,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String man = cursor.getString(cursor.getColumnIndex("manufacturer"));
                 String link = cursor.getString(cursor.getColumnIndex("picLink"));
 
-                Product product = new Product(id,name,type,man,link,onH,unit);
+                Product product = new Product(id,name,type,man,link,onH);
 
                 // Adding user record to list
                 productList.add(product);
@@ -307,12 +307,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String id = cursor.getString(cursor.getColumnIndex("productID"));
                 String name = cursor.getString(cursor.getColumnIndex("name"));
                 String type = cursor.getString(cursor.getColumnIndex("type"));
-                int onH = cursor.getInt(cursor.getColumnIndex("onHand"));
+                Integer onH = cursor.getInt(cursor.getColumnIndex("onHand"));
                 double unit = Double.parseDouble(cursor.getString(cursor.getColumnIndex("unitPrice")));
                 String man = cursor.getString(cursor.getColumnIndex("manufacturer"));
                 String link = cursor.getString(cursor.getColumnIndex("picLink"));
 
-                Product product = new Product(id,name,type,man,link,onH,unit);
+                Product product = new Product(id,name,type,man,link,onH);
 
                 // Adding user record to list
                 productList.add(product);

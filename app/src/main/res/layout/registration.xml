@@ -107,12 +107,11 @@
         android:id="@+id/btnrCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/edtRAddress"
-        android:layout_marginBottom="10dp"
         android:backgroundTint="@color/Cyan"
         android:text="Cancel"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/edtRAddress" />
 
     <Button
         android:id="@+id/btnrConfirm"

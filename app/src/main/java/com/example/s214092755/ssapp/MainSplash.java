@@ -30,7 +30,10 @@ public class MainSplash extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_main_splash, container, false);
 
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Products");
+
         tabHost = (FragmentTabHost)view.findViewById(android.R.id.tabhost);
+        tabHost.setId(android.R.id.tabhost);
         tabHost.setup(getActivity(),getChildFragmentManager(), android.R.id.tabcontent);
 
         tabHost.addTab(tabHost.newTabSpec("supps_fragment").setIndicator("Supplements"), supps_fragment.class,null);

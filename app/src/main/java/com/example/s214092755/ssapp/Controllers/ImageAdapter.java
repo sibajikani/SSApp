@@ -2,6 +2,7 @@ package com.example.s214092755.ssapp.Controllers;
 
 import android.content.Context;
 import android.media.Image;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,19 +48,15 @@ public class ImageAdapter extends BaseAdapter {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        View grid;
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //if (convertView == null) {
-
-            //grid = inflater.inflate(R.layout.grid_item, null);
 
             LinearLayout linearLayout = new LinearLayout(mContext);
             linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-            //TextView textView = (TextView) grid.findViewById(R.id.gridText);
-            //ImageView imageView = (ImageView)grid.findViewById(R.id.gridImage);
+            linearLayout.setGravity(Gravity.CENTER);
+
             TextView textView = new TextView(mContext);
             ImageView imageView = new ImageView(mContext);
+
 
             textView.setText(data.get(position).getName());
             textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -78,10 +75,6 @@ public class ImageAdapter extends BaseAdapter {
 
             linearLayout.addView(imageView);
             linearLayout.addView(textView);
-            //grid.setPadding(5, 5, 5, 5);
-        //} else {
-            //grid = convertView;
-        //}
 
         return linearLayout;
     }
