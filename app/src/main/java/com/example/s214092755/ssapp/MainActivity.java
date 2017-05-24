@@ -25,6 +25,8 @@ import com.example.s214092755.ssapp.Models.User;
 
 import java.util.ArrayList;
 
+/* hey handsome boys*/
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
 {
